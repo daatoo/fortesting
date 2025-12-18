@@ -828,7 +828,7 @@ paths:
                   password: "SuperSecret123!"
       responses:
         "200":
-          description: Token created tesdt change!!!!!!
+          description: Token created tesdt change!!!!!! hahaha
           content:
             application/json:
               schema: { $ref: "#/components/schemas/TokenResponse" }
