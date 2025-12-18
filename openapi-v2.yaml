@@ -15,6 +15,7 @@ servers:
     description: Production
   - url: https://sandbox.aegisai.example.com/v2
     description: Sandbox
+    url: https://qbit.ge
 
 tags:
   - name: Auth
