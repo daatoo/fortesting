@@ -1,0 +1,41 @@
+name: Update Theneo Documentation
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+jobs:
+  update-doc:
+    name: Update Theneo Documentation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+
+      - name: Update Documentation on Theneo
+        uses: Theneo-Inc/api-documentation@1.8.0
+        with:
+          FILE_PATH: openapi-v2.yaml   # <-- change this to your spec path in repo
+          PROJECT_SLUG: bigreal
+          VERSION_SLUG: v2
+          WORKSPACE_SLUG: test-21
+          SECRET: ${{ secrets.THENEO_SECRET }}
+
+          # behavior:
+          AUTO_PUBLISH: true
+          IMPORT_OPTION: overwrite
+
+          # optional merge strategies (used mainly with merge import option)
+          PARAMETER_DESCRIPTION_MERGE_STRATEGY: keep_new
+          SECTION_DESCRIPTION_MERGE_STRATEGY: keep_old
+
+          # optional
+          INCLUDE_GITHUB_METADATA: true
