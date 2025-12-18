@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: AegisAI Moderation & Media Processing API
+  title: AegisAI Moderation & Media Processing APIi
   version: 1.0.0
   summary: Upload media, run moderation, and fetch redacted outputs.
   description: |
