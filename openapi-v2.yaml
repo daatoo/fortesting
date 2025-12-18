@@ -1,6 +1,6 @@
 openapi: 3.1.0
 info:
-  title: AegisAI Moderation & Media Processing API
+  title: AegisAI Moderation & Media Processing APIhere is change
   version: 2.0.0
   summary: Upload media, run moderation, and fetch redacted outputs.
   description: |
@@ -11,7 +11,7 @@ info:
     - Manage policies and webhooks
 
 servers:
-  - url: https://api.aegisai.example.com/v2
+  - url: https://api.aegisai.example.com/v23
     description: Production
   - url: https://sandbox.aegisai.example.com/v2
     description: Sandbox
