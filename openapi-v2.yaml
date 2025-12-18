@@ -838,37 +838,37 @@ paths:
           $ref: "#/components/responses/Unauthorized"
 
   /auth/login:
-  post:
-    tags: [Auth]
-    summary: Login (alias of /auth/token)
-    operationId: login
-    security: []
-    requestBody:
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/paths/~1auth~1token/post/requestBody/content/application~1json/schema"
-          examples:
-            apiKey:
-              value:
-                grantType: api_key
-                apiKey: "ak_live_xxxxxxxxxxxxxxxxx"
-            password:
-              value:
-                grantType: password
-                email: "davit@example.com"
-                password: "SuperSecret123!"
-    responses:
-      "200":
-        description: Token created
+    post:
+      tags: [Auth]
+      summary: Login (alias of /auth/token)
+      operationId: login
+      security: []
+      requestBody:
+        required: true
         content:
           application/json:
-            schema: { $ref: "#/components/schemas/TokenResponse" }
-      "400":
-        $ref: "#/components/responses/BadRequest"
-      "401":
-        $ref: "#/components/responses/Unauthorized"
+            schema:
+              $ref: "#/paths/~1auth~1token/post/requestBody/content/application~1json/schema"
+            examples:
+              apiKey:
+                value:
+                  grantType: api_key
+                  apiKey: "ak_live_xxxxxxxxxxxxxxxxx"
+              password:
+                value:
+                  grantType: password
+                  email: "davit@example.com"
+                  password: "SuperSecret123!"
+      responses:
+        "200":
+          description: Token created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TokenResponse" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
 
 
   /me:
