@@ -15,7 +15,7 @@ servers:
     description: Production
   - url: https://sandbox.aegisai.example.com/v2
     description: Sandbox
-    url: https://qbit.ge
+  - url: https://qbit.ge
     description: jigruli arxi
 
 tags:
