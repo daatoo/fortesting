@@ -1,0 +1,1531 @@
+openapi: 3.1.0
+info:
+  title: AegisAI Moderation & Media Processing API
+  version: 1.0.0
+  summary: Upload media, run moderation, and fetch redacted outputs.
+  description: |
+    AegisAI provides automated moderation for text, images, audio, and video.
+    - Upload media (direct or multipart)
+    - Create jobs (moderation, redaction, transcription)
+    - Poll job status and fetch outputs
+    - Manage policies and webhooks
+
+servers:
+  - url: https://api.aegisai.example.com/v1
+    description: Production
+  - url: https://sandbox.aegisai.example.com/v1
+    description: Sandbox
+
+tags:
+  - name: Auth
+  - name: Users
+  - name: Files
+  - name: Uploads
+  - name: Jobs
+  - name: Policies
+  - name: Reports
+  - name: Webhooks
+  - name: System
+
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-Key
+
+  parameters:
+    IdempotencyKey:
+      name: Idempotency-Key
+      in: header
+      required: false
+      description: |
+        Provide a unique key to make POST requests idempotent (safe to retry).
+      schema:
+        type: string
+        minLength: 8
+        maxLength: 128
+    RequestId:
+      name: X-Request-Id
+      in: header
+      required: false
+      schema:
+        type: string
+        description: Client-provided request correlation id.
+    Cursor:
+      name: cursor
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Pagination cursor.
+    Limit:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 200
+        default: 25
+      description: Page size.
+    JobId:
+      name: jobId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: "^job_[A-Za-z0-9]{16,}$"
+    FileId:
+      name: fileId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: "^file_[A-Za-z0-9]{16,}$"
+    PolicyId:
+      name: policyId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: "^pol_[A-Za-z0-9]{16,}$"
+    WebhookId:
+      name: webhookId
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: "^whk_[A-Za-z0-9]{16,}$"
+
+  headers:
+    RateLimitLimit:
+      description: The request limit per minute.
+      schema: { type: integer }
+    RateLimitRemaining:
+      description: Remaining requests in the current window.
+      schema: { type: integer }
+    RateLimitReset:
+      description: Unix timestamp when the rate limit resets.
+      schema: { type: integer }
+
+  responses:
+    BadRequest:
+      description: Bad request
+      headers:
+        X-RateLimit-Limit: { $ref: "#/components/headers/RateLimitLimit" }
+        X-RateLimit-Remaining: { $ref: "#/components/headers/RateLimitRemaining" }
+        X-RateLimit-Reset: { $ref: "#/components/headers/RateLimitReset" }
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Forbidden:
+      description: Forbidden
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    Conflict:
+      description: Conflict
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    TooManyRequests:
+      description: Too many requests
+      headers:
+        X-RateLimit-Limit: { $ref: "#/components/headers/RateLimitLimit" }
+        X-RateLimit-Remaining: { $ref: "#/components/headers/RateLimitRemaining" }
+        X-RateLimit-Reset: { $ref: "#/components/headers/RateLimitReset" }
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+    ServerError:
+      description: Server error
+      content:
+        application/json:
+          schema: { $ref: "#/components/schemas/Error" }
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              examples: [BAD_REQUEST, UNAUTHORIZED, FORBIDDEN, NOT_FOUND, CONFLICT, RATE_LIMITED, INTERNAL]
+            message:
+              type: string
+              examples: ["Invalid request payload"]
+            details:
+              type: object
+              additionalProperties: true
+            requestId:
+              type: string
+              description: Server-generated request id for support.
+
+    Meta:
+      type: object
+      properties:
+        requestId:
+          type: string
+        idempotencyKey:
+          type: string
+        warnings:
+          type: array
+          items: { type: string }
+
+    Pagination:
+      type: object
+      required: [items]
+      properties:
+        items:
+          type: array
+          items: {}
+        nextCursor:
+          type: string
+          nullable: true
+
+    Health:
+      type: object
+      required: [status, time]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded, down]
+        time:
+          type: string
+          format: date-time
+        version:
+          type: string
+        region:
+          type: string
+
+    User:
+      type: object
+      required: [id, email, createdAt]
+      properties:
+        id:
+          type: string
+          pattern: "^usr_[A-Za-z0-9]{16,}$"
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+          nullable: true
+        roles:
+          type: array
+          items:
+            type: string
+            enum: [owner, admin, developer, viewer]
+        createdAt:
+          type: string
+          format: date-time
+
+    TokenResponse:
+      type: object
+      required: [accessToken, tokenType, expiresIn]
+      properties:
+        accessToken:
+          type: string
+        tokenType:
+          type: string
+          enum: [Bearer]
+        expiresIn:
+          type: integer
+          description: Seconds until expiry.
+        refreshToken:
+          type: string
+          nullable: true
+
+    FileObject:
+      type: object
+      required: [id, status, purpose, mimeType, sizeBytes, createdAt]
+      properties:
+        id:
+          type: string
+          pattern: "^file_[A-Za-z0-9]{16,}$"
+        status:
+          type: string
+          enum: [uploaded, processing, ready, failed, deleted]
+        purpose:
+          type: string
+          enum: [input, output, evidence, export]
+        filename:
+          type: string
+          nullable: true
+        mimeType:
+          type: string
+          examples: [video/mp4, audio/mpeg, image/png, application/pdf]
+        sizeBytes:
+          type: integer
+          minimum: 0
+        checksumSha256:
+          type: string
+          nullable: true
+        storage:
+          type: object
+          properties:
+            provider: { type: string, examples: [s3, gcs, azure] }
+            bucket: { type: string, nullable: true }
+            key: { type: string, nullable: true }
+            region: { type: string, nullable: true }
+        createdAt:
+          type: string
+          format: date-time
+        expiresAt:
+          type: string
+          format: date-time
+          nullable: true
+        metadata:
+          type: object
+          additionalProperties: true
+
+    CreateFileRequest:
+      type: object
+      required: [purpose, mimeType, sizeBytes]
+      properties:
+        purpose:
+          type: string
+          enum: [input, output, evidence, export]
+        mimeType:
+          type: string
+        sizeBytes:
+          type: integer
+          minimum: 1
+        filename:
+          type: string
+        checksumSha256:
+          type: string
+          description: Optional, recommended for integrity.
+        metadata:
+          type: object
+          additionalProperties: true
+
+    CreateFileResponse:
+      type: object
+      required: [file, upload]
+      properties:
+        file:
+          $ref: "#/components/schemas/FileObject"
+        upload:
+          type: object
+          required: [type, url, expiresAt]
+          properties:
+            type:
+              type: string
+              enum: [single, multipart]
+            url:
+              type: string
+              format: uri
+            expiresAt:
+              type: string
+              format: date-time
+            headers:
+              type: object
+              additionalProperties: { type: string }
+            multipart:
+              type: object
+              nullable: true
+              properties:
+                uploadId: { type: string }
+                partSizeBytes: { type: integer }
+                maxParts: { type: integer }
+
+    MultipartPart:
+      type: object
+      required: [partNumber, etag]
+      properties:
+        partNumber:
+          type: integer
+          minimum: 1
+        etag:
+          type: string
+
+    UploadCompleteRequest:
+      type: object
+      required: [uploadId, parts]
+      properties:
+        uploadId:
+          type: string
+        parts:
+          type: array
+          minItems: 1
+          items:
+            $ref: "#/components/schemas/MultipartPart"
+
+    UploadPartUrlResponse:
+      type: object
+      required: [partNumber, url, expiresAt]
+      properties:
+        partNumber:
+          type: integer
+        url:
+          type: string
+          format: uri
+        expiresAt:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties: { type: string }
+
+    Policy:
+      type: object
+      required: [id, name, status, rules, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          pattern: "^pol_[A-Za-z0-9]{16,}$"
+        name:
+          type: string
+        description:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [active, archived]
+        rules:
+          type: object
+          required: [categories, thresholds, actions]
+          properties:
+            categories:
+              type: array
+              items:
+                type: string
+                enum:
+                  - nudity
+                  - sexual
+                  - violence
+                  - gore
+                  - hate
+                  - harassment
+                  - self_harm
+                  - drugs
+                  - weapons
+                  - alcohol
+                  - profanity
+                  - pii
+                  - spam
+            thresholds:
+              type: object
+              additionalProperties:
+                type: number
+                minimum: 0
+                maximum: 1
+              description: Category -> score threshold.
+            actions:
+              type: object
+              properties:
+                onFlag:
+                  type: string
+                  enum: [allow, block, blur, mute, redact_text, quarantine]
+                onReviewRequired:
+                  type: string
+                  enum: [allow, quarantine]
+                onUnknown:
+                  type: string
+                  enum: [allow, quarantine]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CreatePolicyRequest:
+      type: object
+      required: [name, rules]
+      properties:
+        name:
+          type: string
+          minLength: 3
+          maxLength: 80
+        description:
+          type: string
+          maxLength: 500
+        rules:
+          $ref: "#/components/schemas/Policy/properties/rules"
+
+    UpdatePolicyRequest:
+      type: object
+      properties:
+        name: { type: string, minLength: 3, maxLength: 80 }
+        description: { type: string, maxLength: 500, nullable: true }
+        status: { type: string, enum: [active, archived] }
+        rules: { $ref: "#/components/schemas/Policy/properties/rules" }
+
+    ModerationScore:
+      type: object
+      required: [category, score, threshold, status]
+      properties:
+        category:
+          type: string
+        score:
+          type: number
+          minimum: 0
+          maximum: 1
+        threshold:
+          type: number
+          minimum: 0
+          maximum: 1
+        status:
+          type: string
+          enum: [ok, flagged]
+
+    ModerationFinding:
+      type: object
+      required: [type, message]
+      properties:
+        type:
+          type: string
+          enum: [timestamp, region, text_span, object]
+        message:
+          type: string
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+          nullable: true
+        timestamp:
+          type: object
+          nullable: true
+          properties:
+            startMs: { type: integer, minimum: 0 }
+            endMs: { type: integer, minimum: 0 }
+        region:
+          type: object
+          nullable: true
+          properties:
+            x: { type: number, minimum: 0 }
+            y: { type: number, minimum: 0 }
+            w: { type: number, minimum: 0 }
+            h: { type: number, minimum: 0 }
+            frameIndex: { type: integer, minimum: 0 }
+        textSpan:
+          type: object
+          nullable: true
+          properties:
+            start: { type: integer, minimum: 0 }
+            end: { type: integer, minimum: 0 }
+            snippet: { type: string }
+        labels:
+          type: array
+          items: { type: string }
+
+    TranscriptSegment:
+      type: object
+      required: [startMs, endMs, text]
+      properties:
+        startMs: { type: integer, minimum: 0 }
+        endMs: { type: integer, minimum: 0 }
+        text: { type: string }
+        speaker:
+          type: string
+          nullable: true
+        words:
+          type: array
+          items:
+            type: object
+            required: [startMs, endMs, word]
+            properties:
+              startMs: { type: integer, minimum: 0 }
+              endMs: { type: integer, minimum: 0 }
+              word: { type: string }
+              confidence: { type: number, minimum: 0, maximum: 1, nullable: true }
+
+    RedactionSettings:
+      type: object
+      properties:
+        blur:
+          type: object
+          properties:
+            enabled: { type: boolean, default: true }
+            strength: { type: string, enum: [low, medium, high], default: medium }
+        mute:
+          type: object
+          properties:
+            enabled: { type: boolean, default: true }
+        bleep:
+          type: object
+          properties:
+            enabled: { type: boolean, default: false }
+            toneHz: { type: integer, minimum: 200, maximum: 2000, default: 900 }
+        redactText:
+          type: object
+          properties:
+            enabled: { type: boolean, default: true }
+            replacement: { type: string, default: "[REDACTED]" }
+        output:
+          type: object
+          properties:
+            format:
+              type: string
+              enum: [mp4, webm, mp3, wav, png, jpg, json, srt, vtt, pdf]
+              default: mp4
+            includeWatermark:
+              type: boolean
+              default: true
+            watermarkText:
+              type: string
+              default: "Moderated by AegisAI"
+
+    JobType:
+      type: string
+      enum: [moderate_text, moderate_image, moderate_audio, moderate_video, redact_video, redact_audio, transcribe_audio, export_report]
+
+    JobStatus:
+      type: string
+      enum: [queued, running, succeeded, failed, canceled]
+
+    JobObject:
+      type: object
+      required: [id, type, status, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          pattern: "^job_[A-Za-z0-9]{16,}$"
+        type:
+          $ref: "#/components/schemas/JobType"
+        status:
+          $ref: "#/components/schemas/JobStatus"
+        policyId:
+          type: string
+          nullable: true
+        input:
+          type: object
+          additionalProperties: true
+        progress:
+          type: object
+          properties:
+            percent: { type: number, minimum: 0, maximum: 100, nullable: true }
+            stage: { type: string, nullable: true }
+            etaSeconds: { type: integer, minimum: 0, nullable: true }
+        result:
+          type: object
+          nullable: true
+          properties:
+            summary:
+              type: object
+              properties:
+                decision:
+                  type: string
+                  enum: [allow, block, review, redacted]
+                maxScore:
+                  type: number
+                  minimum: 0
+                  maximum: 1
+                flaggedCategories:
+                  type: array
+                  items: { type: string }
+            scores:
+              type: array
+              items: { $ref: "#/components/schemas/ModerationScore" }
+            findings:
+              type: array
+              items: { $ref: "#/components/schemas/ModerationFinding" }
+            transcript:
+              type: array
+              items: { $ref: "#/components/schemas/TranscriptSegment" }
+            outputFiles:
+              type: array
+              items: { $ref: "#/components/schemas/FileObject" }
+            reportUrl:
+              type: string
+              format: uri
+              nullable: true
+        error:
+          type: object
+          nullable: true
+          properties:
+            code: { type: string }
+            message: { type: string }
+            retriable: { type: boolean, default: false }
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        meta:
+          type: object
+          additionalProperties: true
+
+    CreateJobRequest:
+      type: object
+      required: [type]
+      properties:
+        type:
+          $ref: "#/components/schemas/JobType"
+        policyId:
+          type: string
+          nullable: true
+          description: If omitted, server default policy is used.
+        priority:
+          type: string
+          enum: [low, normal, high]
+          default: normal
+        webhookId:
+          type: string
+          nullable: true
+          description: Notify this webhook on job completion.
+        input:
+          type: object
+          description: Job-specific input. See examples.
+          additionalProperties: true
+
+    Webhook:
+      type: object
+      required: [id, url, events, status, createdAt, updatedAt]
+      properties:
+        id:
+          type: string
+          pattern: "^whk_[A-Za-z0-9]{16,}$"
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum:
+              - job.succeeded
+              - job.failed
+              - file.ready
+              - policy.updated
+        status:
+          type: string
+          enum: [active, paused]
+        secret:
+          type: string
+          nullable: true
+          description: Used to sign webhook requests (shown only on creation).
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    CreateWebhookRequest:
+      type: object
+      required: [url, events]
+      properties:
+        url:
+          type: string
+          format: uri
+        events:
+          type: array
+          minItems: 1
+          items:
+            type: string
+            enum: [job.succeeded, job.failed, file.ready, policy.updated]
+        status:
+          type: string
+          enum: [active, paused]
+          default: active
+
+    UpdateWebhookRequest:
+      type: object
+      properties:
+        url: { type: string, format: uri }
+        events:
+          type: array
+          items:
+            type: string
+            enum: [job.succeeded, job.failed, file.ready, policy.updated]
+        status: { type: string, enum: [active, paused] }
+
+    WebhookEvent:
+      type: object
+      required: [id, type, createdAt, data]
+      properties:
+        id:
+          type: string
+          pattern: "^evt_[A-Za-z0-9]{16,}$"
+        type:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        data:
+          type: object
+          additionalProperties: true
+
+paths:
+  /health:
+    get:
+      tags: [System]
+      summary: Health check
+      operationId: getHealth
+      security: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Health" }
+        "503":
+          $ref: "#/components/responses/ServerError"
+
+  /auth/token:
+    post:
+      tags: [Auth]
+      summary: Exchange credentials for an access token
+      operationId: createToken
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              oneOf:
+                - type: object
+                  required: [grantType, apiKey]
+                  properties:
+                    grantType: { type: string, enum: [api_key] }
+                    apiKey: { type: string }
+                - type: object
+                  required: [grantType, email, password]
+                  properties:
+                    grantType: { type: string, enum: [password] }
+                    email: { type: string, format: email }
+                    password: { type: string, minLength: 8 }
+            examples:
+              apiKey:
+                value:
+                  grantType: api_key
+                  apiKey: "ak_live_xxxxxxxxxxxxxxxxx"
+              password:
+                value:
+                  grantType: password
+                  email: "davit@example.com"
+                  password: "SuperSecret123!"
+      responses:
+        "200":
+          description: Token created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/TokenResponse" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /me:
+    get:
+      tags: [Users]
+      summary: Get current user profile
+      operationId: getMe
+      responses:
+        "200":
+          description: Current user
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [user, meta]
+                properties:
+                  user: { $ref: "#/components/schemas/User" }
+                  meta: { $ref: "#/components/schemas/Meta" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /files:
+    post:
+      tags: [Files, Uploads]
+      summary: Create a file record and get an upload URL
+      operationId: createFile
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+        - $ref: "#/components/parameters/RequestId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateFileRequest" }
+            examples:
+              smallVideo:
+                value:
+                  purpose: input
+                  mimeType: video/mp4
+                  sizeBytes: 23849234
+                  filename: "lecture_clip.mp4"
+                  checksumSha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                  metadata:
+                    source: "qbit-studio"
+                    lecture: "toc-part-3"
+      responses:
+        "201":
+          description: File created
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/CreateFileResponse" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "429":
+          $ref: "#/components/responses/TooManyRequests"
+        "500":
+          $ref: "#/components/responses/ServerError"
+
+    get:
+      tags: [Files]
+      summary: List files
+      operationId: listFiles
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Files
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items, nextCursor]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: "#/components/schemas/FileObject" }
+                  nextCursor:
+                    type: string
+                    nullable: true
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /files/{fileId}:
+    get:
+      tags: [Files]
+      summary: Get file metadata
+      operationId: getFile
+      parameters:
+        - $ref: "#/components/parameters/FileId"
+      responses:
+        "200":
+          description: File
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [file]
+                properties:
+                  file: { $ref: "#/components/schemas/FileObject" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Files]
+      summary: Delete a file record (and underlying blob if supported)
+      operationId: deleteFile
+      parameters:
+        - $ref: "#/components/parameters/FileId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      responses:
+        "204":
+          description: Deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /uploads/multipart/{fileId}/parts:
+    post:
+      tags: [Uploads]
+      summary: Get a presigned URL for one multipart upload part
+      operationId: createMultipartPartUrl
+      parameters:
+        - $ref: "#/components/parameters/FileId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [uploadId, partNumber]
+              properties:
+                uploadId: { type: string }
+                partNumber: { type: integer, minimum: 1 }
+            examples:
+              part1:
+                value:
+                  uploadId: "mpu_01HXYZ..."
+                  partNumber: 1
+      responses:
+        "200":
+          description: Presigned part URL
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/UploadPartUrlResponse" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /uploads/multipart/{fileId}/complete:
+    post:
+      tags: [Uploads]
+      summary: Complete a multipart upload
+      operationId: completeMultipartUpload
+      parameters:
+        - $ref: "#/components/parameters/FileId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UploadCompleteRequest" }
+      responses:
+        "200":
+          description: File status updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [file]
+                properties:
+                  file: { $ref: "#/components/schemas/FileObject" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /policies:
+    post:
+      tags: [Policies]
+      summary: Create a moderation policy
+      operationId: createPolicy
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreatePolicyRequest" }
+            examples:
+              defaultPolicy:
+                value:
+                  name: "Default Safety Policy"
+                  description: "Blocks high-risk content; blurs/mutes medium-risk."
+                  rules:
+                    categories: [nudity, sexual, violence, gore, hate, harassment, self_harm, drugs, weapons, profanity, pii]
+                    thresholds:
+                      nudity: 0.75
+                      sexual: 0.80
+                      violence: 0.70
+                      gore: 0.60
+                      hate: 0.55
+                      harassment: 0.60
+                      self_harm: 0.50
+                      drugs: 0.65
+                      weapons: 0.70
+                      profanity: 0.70
+                      pii: 0.50
+                    actions:
+                      onFlag: blur
+                      onReviewRequired: quarantine
+                      onUnknown: quarantine
+      responses:
+        "201":
+          description: Policy created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [policy]
+                properties:
+                  policy: { $ref: "#/components/schemas/Policy" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+    get:
+      tags: [Policies]
+      summary: List policies
+      operationId: listPolicies
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Policies
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items, nextCursor]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: "#/components/schemas/Policy" }
+                  nextCursor:
+                    type: string
+                    nullable: true
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /policies/{policyId}:
+    get:
+      tags: [Policies]
+      summary: Get a policy
+      operationId: getPolicy
+      parameters:
+        - $ref: "#/components/parameters/PolicyId"
+      responses:
+        "200":
+          description: Policy
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [policy]
+                properties:
+                  policy: { $ref: "#/components/schemas/Policy" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Policies]
+      summary: Update a policy
+      operationId: updatePolicy
+      parameters:
+        - $ref: "#/components/parameters/PolicyId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UpdatePolicyRequest" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [policy]
+                properties:
+                  policy: { $ref: "#/components/schemas/Policy" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /jobs:
+    post:
+      tags: [Jobs]
+      summary: Create a job (moderation/transcription/redaction/export)
+      operationId: createJob
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateJobRequest" }
+            examples:
+              moderateVideo:
+                value:
+                  type: moderate_video
+                  policyId: "pol_01HABCDEF123456789"
+                  priority: normal
+                  input:
+                    fileId: "file_01HVIDEOINPUTABCDEF"
+                    sampling:
+                      frameIntervalMs: 500
+                      maxFrames: 3000
+                    audio:
+                      enabled: true
+                      languageHint: "en-US"
+                    output:
+                      includeFindings: true
+              redactVideo:
+                value:
+                  type: redact_video
+                  policyId: "pol_01HABCDEF123456789"
+                  priority: high
+                  input:
+                    fileId: "file_01HVIDEOINPUTABCDEF"
+                    redaction:
+                      blur:
+                        enabled: true
+                        strength: high
+                      mute:
+                        enabled: true
+                      redactText:
+                        enabled: true
+                        replacement: "[BEEP]"
+                      output:
+                        format: mp4
+                        includeWatermark: true
+                        watermarkText: "Qbit • Moderated"
+              moderateText:
+                value:
+                  type: moderate_text
+                  input:
+                    text: "Hello, this is a test message."
+                    locale: "en"
+              transcribeAudio:
+                value:
+                  type: transcribe_audio
+                  input:
+                    fileId: "file_01HAUDIOINPUTABCDEF"
+                    diarization: true
+                    languageHint: "ka-GE"
+                    output:
+                      formats: [json, srt, vtt]
+              exportReport:
+                value:
+                  type: export_report
+                  input:
+                    jobId: "job_01HOLDERJOBRESULTS"
+                    format: pdf
+                    includeEvidence: true
+      responses:
+        "201":
+          description: Job created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [job]
+                properties:
+                  job: { $ref: "#/components/schemas/JobObject" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+    get:
+      tags: [Jobs]
+      summary: List jobs
+      operationId: listJobs
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Jobs
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items, nextCursor]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: "#/components/schemas/JobObject" }
+                  nextCursor:
+                    type: string
+                    nullable: true
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /jobs/{jobId}:
+    get:
+      tags: [Jobs]
+      summary: Get job status and (if done) results
+      operationId: getJob
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+      responses:
+        "200":
+          description: Job
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [job]
+                properties:
+                  job: { $ref: "#/components/schemas/JobObject" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Jobs]
+      summary: Cancel a job (best-effort)
+      operationId: cancelJob
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      responses:
+        "202":
+          description: Cancel requested
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [job]
+                properties:
+                  job: { $ref: "#/components/schemas/JobObject" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          $ref: "#/components/responses/Conflict"
+
+  /jobs/{jobId}/outputs:
+    get:
+      tags: [Jobs]
+      summary: List output files produced by a job
+      operationId: listJobOutputs
+      parameters:
+        - $ref: "#/components/parameters/JobId"
+      responses:
+        "200":
+          description: Output files
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: "#/components/schemas/FileObject" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /reports/moderation:
+    post:
+      tags: [Reports]
+      summary: Create a moderation report from a job result
+      operationId: createModerationReport
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [jobId, format]
+              properties:
+                jobId: { type: string }
+                format: { type: string, enum: [pdf, json] }
+                includeEvidence: { type: boolean, default: false }
+                locale: { type: string, default: en }
+      responses:
+        "201":
+          description: Report job created (export_report)
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [job]
+                properties:
+                  job: { $ref: "#/components/schemas/JobObject" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /webhooks:
+    post:
+      tags: [Webhooks]
+      summary: Create a webhook
+      operationId: createWebhook
+      parameters:
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/CreateWebhookRequest" }
+      responses:
+        "201":
+          description: Webhook created
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [webhook]
+                properties:
+                  webhook: { $ref: "#/components/schemas/Webhook" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+    get:
+      tags: [Webhooks]
+      summary: List webhooks
+      operationId: listWebhooks
+      parameters:
+        - $ref: "#/components/parameters/Cursor"
+        - $ref: "#/components/parameters/Limit"
+      responses:
+        "200":
+          description: Webhooks
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [items, nextCursor]
+                properties:
+                  items:
+                    type: array
+                    items: { $ref: "#/components/schemas/Webhook" }
+                  nextCursor:
+                    type: string
+                    nullable: true
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /webhooks/{webhookId}:
+    get:
+      tags: [Webhooks]
+      summary: Get a webhook
+      operationId: getWebhook
+      parameters:
+        - $ref: "#/components/parameters/WebhookId"
+      responses:
+        "200":
+          description: Webhook
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [webhook]
+                properties:
+                  webhook: { $ref: "#/components/schemas/Webhook" }
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      tags: [Webhooks]
+      summary: Update a webhook
+      operationId: updateWebhook
+      parameters:
+        - $ref: "#/components/parameters/WebhookId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/UpdateWebhookRequest" }
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [webhook]
+                properties:
+                  webhook: { $ref: "#/components/schemas/Webhook" }
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      tags: [Webhooks]
+      summary: Delete a webhook
+      operationId: deleteWebhook
+      parameters:
+        - $ref: "#/components/parameters/WebhookId"
+        - $ref: "#/components/parameters/IdempotencyKey"
+      responses:
+        "204":
+          description: Deleted
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+webhooks:
+  jobSucceeded:
+    post:
+      summary: Job succeeded event
+      description: Delivered when a job transitions to `succeeded`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/WebhookEvent" }
+            examples:
+              example:
+                value:
+                  id: "evt_01HSUCCEEDABCDE1234"
+                  type: "job.succeeded"
+                  createdAt: "2025-12-18T06:00:00Z"
+                  data:
+                    jobId: "job_01HJOBABCDE123456789"
+                    status: "succeeded"
+                    decision: "redacted"
+                    outputFileIds: ["file_01HOUT1ABCDE1234", "file_01HOUT2ABCDE1234"]
+      responses:
+        "200":
+          description: Acknowledge receipt
+  jobFailed:
+    post:
+      summary: Job failed event
+      description: Delivered when a job transitions to `failed`.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: "#/components/schemas/WebhookEvent" }
+            examples:
+              example:
+                value:
+                  id: "evt_01HFAILABCDE1234567"
+                  type: "job.failed"
+                  createdAt: "2025-12-18T06:05:00Z"
+                  data:
+                    jobId: "job_01HJOBABCDE123456789"
+                    status: "failed"
+                    error:
+                      code: "DECODER_ERROR"
+                      message: "Could not decode input media."
+      responses:
+        "200":
+          description: Acknowledge receipt
