@@ -31,7 +31,7 @@ jobs:
 
           # behavior:
           AUTO_PUBLISH: true
-          IMPORT_OPTION: merge
+          IMPORT_OPTION: overwrite
 
           # optional merge strategies (used mainly with merge import option)
           PARAMETER_DESCRIPTION_MERGE_STRATEGY: keep_new
