@@ -1,7 +1,16 @@
+name: Update Theneo Documentation
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
 jobs:
-  update-doc:
-    name: Update Documentation (OpenAPI) on Theneo
+  update-openapi:
+    name: Update Theneo Documentation (OpenAPI)
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,16 +28,23 @@ jobs:
           VERSION_SLUG: v2
           WORKSPACE_SLUG: test-21
           SECRET: ${{ secrets.THENEO_SECRET }}
+
+          # behavior:
           AUTO_PUBLISH: true
-          IMPORT_OPTION: merge
+          IMPORT_OPTION: endpoints
+
+          # optional merge strategies (used mainly with merge import option)
           PARAMETER_DESCRIPTION_MERGE_STRATEGY: keep_new
           SECTION_DESCRIPTION_MERGE_STRATEGY: keep_old
+
+          # optional
           INCLUDE_GITHUB_METADATA: true
 
   update-markdown:
-    name: Update Documentation (Markdown) on Theneo
+    name: Update Theneo Documentation (Markdown)
     runs-on: ubuntu-latest
-    needs: update-doc
+    needs: update-openapi
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -39,7 +55,7 @@ jobs:
           node-version: "18"
 
       - name: Install Theneo CLI
-        run: npm i -g @theneo/cli@latest
+        run: npm install -g @theneo/cli@latest
 
       - name: Login to Theneo CLI
         env:
@@ -47,10 +63,9 @@ jobs:
         run: |
           theneo login --secret "$THENEO_SECRET"
 
-      - name: Import Markdown to Theneo
+      - name: Import Markdown project directory into Theneo
         run: |
           theneo import \
             --project bigreal \
-            --projectVersion v2 \
             --workspace test-21 \
             --dir ./theneo-markdown
