@@ -1,0 +1,369 @@
+{
+  "endpoints": {
+    "method": "get",
+    "path": "/me"
+  },
+  "request": {
+    "query": [],
+    "body": [],
+    "header": [
+      {
+        "name": "Authorization",
+        "description": "Bearer token or credential used in the header to authenticate the user session",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key provided in the request header for authenticating the client",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [],
+    "contentType": "",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad5794131c"
+  },
+  "responses": [
+    {
+      "name": "200",
+      "status": "OK",
+      "body": [
+        {
+          "name": "user",
+          "description": "Object containing detailed information about the current authenticated user",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "id",
+              "description": "Unique identifier assigned to the user profile",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "pattern": "^usr_[A-Za-z0-9]{16,}$",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "email",
+              "description": "Email address associated with the user profile",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "email",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "name",
+              "description": "Full name of the user as stored in their profile",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "roles",
+              "description": "Array of roles assigned to the user, defining their permissions and access levels",
+              "isRequired": false,
+              "value": "owner",
+              "valueType": "array",
+              "items": [
+                {
+                  "name": "0",
+                  "description": "Placeholder for an unnamed or indexed item in the response array, context-specific",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "owner"
+                      },
+                      {
+                        "value": "admin"
+                      },
+                      {
+                        "value": "developer"
+                      },
+                      {
+                        "value": "viewer"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "owner"
+                  },
+                  {
+                    "value": "admin"
+                  },
+                  {
+                    "value": "developer"
+                  },
+                  {
+                    "value": "viewer"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "createdAt",
+              "description": "Timestamp indicating when the user profile was created, in ISO 8601 format",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        },
+        {
+          "name": "meta",
+          "description": "Additional metadata associated with the user profile or response context",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "requestId",
+              "description": "Unique identifier for the API request used for tracing and debugging",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "idempotencyKey",
+              "description": "Unique key used to ensure idempotent requests, preventing duplicate operations",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "warnings",
+              "description": "List of non-critical warnings related to the request or response processing",
+              "isRequired": false,
+              "value": "",
+              "valueType": "array",
+              "items": [
+                {
+                  "name": "0",
+                  "description": "Placeholder for an unnamed or indexed item in the response array, context-specific",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 200,
+      "description": "Current user",
+      "contentType": "application/json"
+    },
+    {
+      "name": "401",
+      "status": "Unauthorized",
+      "body": [
+        {
+          "name": "error",
+          "description": "Description or code of an error encountered during the API request",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status or application-specific code indicating the result of the request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message describing the status or result of the API call",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Detailed information describing errors, warnings, or other response attributes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique identifier for the API request used for tracing and debugging",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

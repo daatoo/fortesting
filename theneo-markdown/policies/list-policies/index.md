@@ -1,0 +1,1 @@
+Retrieve a comprehensive list of policies configured within your account, including detailed information such as names, descriptions, statuses, and associated rules. This allows you to efficiently review and manage policy definitions, helping you maintain control over the criteria and actions applied across your system.

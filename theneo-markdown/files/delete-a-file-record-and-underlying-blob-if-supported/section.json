@@ -1,0 +1,264 @@
+{
+  "endpoints": {
+    "method": "delete",
+    "path": "files/{fileId}"
+  },
+  "request": {
+    "query": [],
+    "body": [],
+    "header": [
+      {
+        "name": "Idempotency-Key",
+        "description": "A unique key to ensure the request is processed only once, enabling safe retries without side effects",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 8,
+          "maxLength": 128,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "Bearer token used for verifying the identity of the requester and granting access",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "Your API key used to authenticate requests and authorize access to the endpoint",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [
+      {
+        "name": "fileId",
+        "description": "Unique identifier of the file to be deleted, specified as a path parameter",
+        "isRequired": true,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "pattern": "^file_[A-Za-z0-9]{16,}$",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "6943b8e449c26e6add4158b8"
+  },
+  "responses": [
+    {
+      "body": [],
+      "statusCode": 204,
+      "description": "Deleted",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Error details returned when the delete operation fails, including the reason and possible resolution steps",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "Numeric status code indicating the result of the delete operation",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message summarizing the result of the delete request",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context or specifics about the delete operation outcome",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated unique identifier for the request, useful for troubleshooting and support interactions",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Error details returned when the delete operation fails, including the reason and possible resolution steps",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "Numeric status code indicating the result of the delete operation",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message summarizing the result of the delete request",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context or specifics about the delete operation outcome",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated unique identifier for the request, useful for troubleshooting and support interactions",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 404,
+      "description": "Not found",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

@@ -1,0 +1,1 @@
+Finalize a multipart upload by submitting the list of uploaded parts to assemble the complete file. This operation confirms the successful combination of all parts, enabling access to the fully constructed file along with its metadata and storage details.

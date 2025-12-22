@@ -1,0 +1,1 @@
+Create and configure customized moderation policies to define content categories, set threshold scores for various content types, and specify automated actions based on content evaluation. This section enables users to establish rules that help automate content review and enforcement tailored to their platform’s standards.

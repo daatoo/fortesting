@@ -1,0 +1,558 @@
+{
+  "endpoints": {
+    "method": "get",
+    "path": "/jobs/{jobId}/outputs"
+  },
+  "request": {
+    "query": [],
+    "body": [],
+    "header": [
+      {
+        "name": "Authorization",
+        "description": "Bearer token or credentials included in the request header to authorize API access",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key provided in the request header to authenticate the client",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [
+      {
+        "name": "jobId",
+        "description": "The unique identifier of the job whose output files are being listed",
+        "isRequired": true,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "pattern": "^job_[A-Za-z0-9]{16,}$",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "contentType": "",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad5794165e"
+  },
+  "responses": [
+    {
+      "name": "200",
+      "status": "OK",
+      "body": [
+        {
+          "name": "items",
+          "description": "A list or array of output file objects returned by the API for the specified job",
+          "isRequired": true,
+          "value": "",
+          "valueType": "array",
+          "items": [
+            {
+              "name": "0",
+              "description": "Reserved or placeholder parameter, typically used for indexing or indicating the first item in a list",
+              "isRequired": false,
+              "value": "",
+              "valueType": "array",
+              "items": [
+                {
+                  "name": "id",
+                  "description": "A unique identifier for the output file resource",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "pattern": "^file_[A-Za-z0-9]{16,}$",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "status",
+                  "description": "The current processing state of the output file, such as \"pending\", \"completed\", or \"failed\"",
+                  "isRequired": true,
+                  "value": "uploaded",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "uploaded"
+                      },
+                      {
+                        "value": "processing"
+                      },
+                      {
+                        "value": "ready"
+                      },
+                      {
+                        "value": "failed"
+                      },
+                      {
+                        "value": "deleted"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "purpose",
+                  "description": "The intended use or classification of the output file, such as \"transcode\" or \"thumbnail\"",
+                  "isRequired": true,
+                  "value": "input",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "input"
+                      },
+                      {
+                        "value": "output"
+                      },
+                      {
+                        "value": "evidence"
+                      },
+                      {
+                        "value": "export"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "filename",
+                  "description": "The original or assigned name of the output file",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "mimeType",
+                  "description": "The MIME type of the output file indicating its format, such as \"video/mp4\" or \"image/png\"",
+                  "isRequired": true,
+                  "value": "video/mp4",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "example": "video/mp4",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "sizeBytes",
+                  "description": "The size of the output file in bytes",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "integer",
+                  "items": [],
+                  "options": {
+                    "minimum": 0,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "checksumSha256",
+                  "description": "SHA-256 hash of the output file, used to verify file integrity",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "storage",
+                  "description": "The storage provider or service used to host the output file, e.g., S3, GCS",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [
+                    {
+                      "name": "provider",
+                      "description": "The name of the external service or infrastructure provider managing the output file storage",
+                      "isRequired": false,
+                      "value": "s3",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "example": "s3",
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "bucket",
+                      "description": "The name of the storage bucket where the output file is saved",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "nullable": true,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "key",
+                      "description": "The unique identifier or path of the output file within the storage bucket",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "nullable": true,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "region",
+                      "description": "The geographic region where the output file's storage bucket is located",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "nullable": true,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "createdAt",
+                  "description": "The ISO 8601 timestamp when the output file was created",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "format": "date-time",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "expiresAt",
+                  "description": "The ISO 8601 timestamp when access to the output file expires",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "format": "date-time",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "metadata",
+                  "description": "A key-value object containing additional custom information associated with the output file",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 200,
+      "description": "Output files",
+      "contentType": "application/json"
+    },
+    {
+      "name": "401",
+      "status": "Unauthorized",
+      "body": [
+        {
+          "name": "error",
+          "description": "Object or string detailing any error associated with retrieving or processing the output file",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A short code representing the status or error related to the output file",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message providing additional information about the output file status or errors",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Detailed information or context about the output file status or any errors encountered",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique server-generated identifier for the request, useful for troubleshooting and support",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    },
+    {
+      "name": "404",
+      "status": "Not Found",
+      "body": [
+        {
+          "name": "error",
+          "description": "Object or string detailing any error associated with retrieving or processing the output file",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A short code representing the status or error related to the output file",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message providing additional information about the output file status or errors",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Detailed information or context about the output file status or any errors encountered",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique server-generated identifier for the request, useful for troubleshooting and support",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 404,
+      "description": "Not found",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

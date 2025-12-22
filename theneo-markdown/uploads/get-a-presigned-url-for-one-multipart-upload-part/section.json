@@ -1,0 +1,444 @@
+{
+  "endpoints": {
+    "method": "post",
+    "path": "uploads/multipart/{fileId}/parts"
+  },
+  "request": {
+    "query": [],
+    "body": [
+      {
+        "name": "uploadId",
+        "description": "Identifier for the multipart upload session associated with the file",
+        "isRequired": true,
+        "value": "mpu_01HXYZ...",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "partNumber",
+        "description": "The sequential number of the multipart upload part being requested",
+        "isRequired": true,
+        "value": "1",
+        "valueType": "integer",
+        "items": [],
+        "options": {
+          "minimum": 1,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "header": [
+      {
+        "name": "Idempotency-Key",
+        "description": "Unique key to ensure the POST request is idempotent and safe to retry without creating duplicate uploads",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 8,
+          "maxLength": 128,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "Bearer token or credentials used to authorize the request",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key required for authenticating the request",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [
+      {
+        "name": "fileId",
+        "description": "Unique identifier of the file associated with the multipart upload",
+        "isRequired": true,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "pattern": "^file_[A-Za-z0-9]{16,}$",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "6943b8e849c26e6add415922"
+  },
+  "responses": [
+    {
+      "body": [
+        {
+          "name": "partNumber",
+          "description": "The sequential number of the multipart upload part being requested",
+          "isRequired": true,
+          "value": "",
+          "valueType": "integer",
+          "items": [],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        },
+        {
+          "name": "url",
+          "description": "Presigned URL to which the multipart upload part should be uploaded",
+          "isRequired": true,
+          "value": "",
+          "valueType": "string",
+          "items": [],
+          "options": {
+            "format": "uri",
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        },
+        {
+          "name": "expiresAt",
+          "description": "Timestamp indicating when the presigned URL will expire",
+          "isRequired": true,
+          "value": "",
+          "valueType": "string",
+          "items": [],
+          "options": {
+            "format": "date-time",
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        },
+        {
+          "name": "headers",
+          "description": "HTTP headers that must be included when uploading the part using the presigned URL",
+          "isRequired": false,
+          "value": "",
+          "valueType": "object",
+          "items": [],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 200,
+      "description": "Presigned part URL",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Error code or type associated with the failure of the request",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status code indicating the result of the request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message describing the status or error of the request",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context about the response or error",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated unique identifier for tracking and support purposes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 400,
+      "description": "Bad request",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Error code or type associated with the failure of the request",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status code indicating the result of the request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message describing the status or error of the request",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context about the response or error",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated unique identifier for tracking and support purposes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Error code or type associated with the failure of the request",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status code indicating the result of the request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message describing the status or error of the request",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context about the response or error",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated unique identifier for tracking and support purposes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 404,
+      "description": "Not found",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

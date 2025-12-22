@@ -1,0 +1,1 @@
+Retrieve a paginated list of all configured webhooks within your BigReal account, including their URLs, subscribed events, statuses, and metadata. This allows you to efficiently manage and monitor webhook integrations by reviewing their details and activity at a glance.

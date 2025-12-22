@@ -1,0 +1,1718 @@
+{
+  "endpoints": {
+    "method": "post",
+    "path": "/reports/moderation"
+  },
+  "request": {
+    "query": [],
+    "body": [
+      {
+        "name": "jobId",
+        "description": "Unique identifier for the moderation job whose results are being reported.",
+        "isRequired": true,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "format",
+        "description": "Desired output format of the moderation report, such as JSON or PDF.",
+        "isRequired": true,
+        "value": "pdf",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "enumValue": [
+            {
+              "value": "pdf"
+            },
+            {
+              "value": "json"
+            }
+          ],
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "includeEvidence",
+        "description": "Boolean flag indicating whether to include supporting evidence and metadata in the report.",
+        "isRequired": false,
+        "value": "false",
+        "valueType": "boolean",
+        "items": [],
+        "options": {
+          "defaultValue": "false",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "locale",
+        "description": "Specifies the locale to be used for the moderation report, affecting language and regional formatting.",
+        "isRequired": false,
+        "value": "en",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "defaultValue": "en",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "header": [
+      {
+        "name": "Idempotency-Key",
+        "description": "Unique key to ensure that POST requests are processed only once, preventing duplicate actions.",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 8,
+          "maxLength": 128,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "Bearer token or credentials required to authenticate and authorize the API request.",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key used to authenticate the request and authorize access to the moderation endpoint.",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad579416be"
+  },
+  "responses": [
+    {
+      "name": "201",
+      "status": "Created",
+      "body": [
+        {
+          "name": "job",
+          "description": "The identifier of the moderation job that generated this report",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "id",
+              "description": "Unique identifier for the generated moderation report.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "pattern": "^job_[A-Za-z0-9]{16,}$",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "type",
+              "description": "Specifies the type of moderation report or content being reviewed.",
+              "isRequired": true,
+              "value": "moderate_text",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "moderate_text"
+                  },
+                  {
+                    "value": "moderate_image"
+                  },
+                  {
+                    "value": "moderate_audio"
+                  },
+                  {
+                    "value": "moderate_video"
+                  },
+                  {
+                    "value": "redact_video"
+                  },
+                  {
+                    "value": "redact_audio"
+                  },
+                  {
+                    "value": "transcribe_audio"
+                  },
+                  {
+                    "value": "export_report"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "status",
+              "description": "Current state of the moderation report, indicating if it's pending, completed, or failed.",
+              "isRequired": true,
+              "value": "queued",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "queued"
+                  },
+                  {
+                    "value": "running"
+                  },
+                  {
+                    "value": "succeeded"
+                  },
+                  {
+                    "value": "failed"
+                  },
+                  {
+                    "value": "canceled"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "policyId",
+              "description": "Identifier of the moderation policy applied during the content review.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "input",
+              "description": "The original content or data submitted for moderation.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "progress",
+              "description": "Percentage or status indicator reflecting how much of the moderation process has been completed.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "percent",
+                  "description": "Numeric value representing a portion or completion rate related to the moderation process.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "number",
+                  "items": [],
+                  "options": {
+                    "minimum": 0,
+                    "maximum": 100,
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "stage",
+                  "description": "The current phase of the moderation workflow, such as initial review or final decision.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "etaSeconds",
+                  "description": "Estimated time in seconds until the moderation process is complete.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "integer",
+                  "items": [],
+                  "options": {
+                    "minimum": 0,
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "result",
+              "description": "The outcome or findings of the moderation job",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "summary",
+                  "description": "Concise overview of the moderation results and key findings.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [
+                    {
+                      "name": "decision",
+                      "description": "The final moderation outcome based on the analysis, such as approved, rejected, or flagged.",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "block"
+                          },
+                          {
+                            "value": "review"
+                          },
+                          {
+                            "value": "redacted"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "maxScore",
+                      "description": "The highest possible score attainable for a given moderation category.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "number",
+                      "items": [],
+                      "options": {
+                        "minimum": 0,
+                        "maximum": 1,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "flaggedCategories",
+                      "description": "A list of categories detected in the content that triggered flags during moderation.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "0",
+                          "description": "Placeholder key used for indexed response items; refers to the first element in a list or array.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "array",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "scores",
+                  "description": "Numerical values representing the confidence levels across different moderation categories.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "Placeholder key used for indexed response items; refers to the first element in a list or array.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "category",
+                          "description": "Specific classification assigned to the content based on moderation criteria.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "score",
+                          "description": "The individual score assigned to a specific moderation category or rule.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "number",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "maximum": 1,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "threshold",
+                          "description": "The minimum score required to trigger a specific moderation action.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "number",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "maximum": 1,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "status",
+                          "description": "Current state of the moderation report, indicating if it's pending, completed, or failed.",
+                          "isRequired": true,
+                          "value": "ok",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "ok"
+                              },
+                              {
+                                "value": "flagged"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "findings",
+                  "description": "An array or list of detected moderation issues or flagged elements identified in the job result.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "Typically denotes the first element in an array or list, often referencing the initial moderation result or data point.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "type",
+                          "description": "Specifies the type of moderation report or content being reviewed.",
+                          "isRequired": true,
+                          "value": "timestamp",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "timestamp"
+                              },
+                              {
+                                "value": "region"
+                              },
+                              {
+                                "value": "text_span"
+                              },
+                              {
+                                "value": "object"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "message",
+                          "description": "Informational or error message providing additional context about the moderation result or process.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "confidence",
+                          "description": "The probability score indicating the certainty of the moderation decision.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "number",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "maximum": 1,
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "timestamp",
+                          "description": "A specific point in time within the media content when the moderation event occurred.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "startMs",
+                              "description": "The start time of a segment or event in milliseconds from the beginning of the media content.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "endMs",
+                              "description": "The end time of a segment or event in milliseconds from the beginning of the media content.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "region",
+                          "description": "A defined area within visual media flagged for content moderation review.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "x",
+                              "description": "The horizontal coordinate of a point or bounding box within an image or video frame.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "y",
+                              "description": "The vertical coordinate of a point or bounding box within an image or video frame.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "w",
+                              "description": "The width dimension of a detected region or bounding box within visual content.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "h",
+                              "description": "The height dimension of a detected region or bounding box within visual content.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "frameIndex",
+                              "description": "The numerical index of the frame within a video where a moderation finding was detected.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "textSpan",
+                          "description": "The specific segment or range of text related to a moderation finding.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "start",
+                              "description": "The starting position or timestamp indicating where the moderation result begins within the content or dataset.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "end",
+                              "description": "The ending position or timestamp marking where the moderation result concludes within the content or dataset.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "snippet",
+                              "description": "A brief excerpt of text or media content highlighting the context of the moderation finding.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "labels",
+                          "description": "A set of descriptive tags or categories assigned to moderation findings for classification purposes.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "array",
+                          "items": [
+                            {
+                              "name": "0",
+                              "description": "Typically denotes the first element in an array or list, often referencing the initial moderation result or data point.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "array",
+                              "items": [],
+                              "options": {
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "transcript",
+                  "description": "The full or partial text transcription of audio or video content subjected to moderation.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "Typically denotes the first element in an array or list, often referencing the initial moderation result or data point.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "startMs",
+                          "description": "The start time of a segment or event in milliseconds from the beginning of the media content.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "integer",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "endMs",
+                          "description": "The end time of a segment or event in milliseconds from the beginning of the media content.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "integer",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "text",
+                          "description": "The textual content associated with a moderation finding, providing context or details.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "speaker",
+                          "description": "Identifier or label for the speaker associated with a particular segment of speech or transcript.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "words",
+                          "description": "A collection of individual words or tokens derived from the transcript relevant to the moderation report.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "array",
+                          "items": [
+                            {
+                              "name": "0",
+                              "description": "Typically denotes the first element in an array or list, often referencing the initial moderation result or data point.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "array",
+                              "items": [
+                                {
+                                  "name": "startMs",
+                                  "description": "The start time of a segment or event in milliseconds from the beginning of the media content.",
+                                  "isRequired": true,
+                                  "value": "",
+                                  "valueType": "integer",
+                                  "items": [],
+                                  "options": {
+                                    "minimum": 0,
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                },
+                                {
+                                  "name": "endMs",
+                                  "description": "The end time of a segment or event in milliseconds from the beginning of the media content.",
+                                  "isRequired": true,
+                                  "value": "",
+                                  "valueType": "integer",
+                                  "items": [],
+                                  "options": {
+                                    "minimum": 0,
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                },
+                                {
+                                  "name": "word",
+                                  "description": "A single word extracted from the transcript or text that is relevant to moderation analysis.",
+                                  "isRequired": true,
+                                  "value": "",
+                                  "valueType": "string",
+                                  "items": [],
+                                  "options": {
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                },
+                                {
+                                  "name": "confidence",
+                                  "description": "A numerical score between 0 and 1 representing the certainty level of the moderation finding.",
+                                  "isRequired": false,
+                                  "value": "",
+                                  "valueType": "number",
+                                  "items": [],
+                                  "options": {
+                                    "minimum": 0,
+                                    "maximum": 1,
+                                    "nullable": true,
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                }
+                              ],
+                              "options": {
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "outputFiles",
+                  "description": "A list of files generated as output from the moderation job",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "Reserved or placeholder parameter, typically representing an indexed item in a list response",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "id",
+                          "description": "A unique identifier assigned to each moderation finding or report element.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "pattern": "^file_[A-Za-z0-9]{16,}$",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "status",
+                          "description": "The current state of the moderation report processing",
+                          "isRequired": true,
+                          "value": "uploaded",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "uploaded"
+                              },
+                              {
+                                "value": "processing"
+                              },
+                              {
+                                "value": "ready"
+                              },
+                              {
+                                "value": "failed"
+                              },
+                              {
+                                "value": "deleted"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "purpose",
+                          "description": "The intended use or reason for generating the moderation report",
+                          "isRequired": true,
+                          "value": "input",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "input"
+                              },
+                              {
+                                "value": "output"
+                              },
+                              {
+                                "value": "evidence"
+                              },
+                              {
+                                "value": "export"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "filename",
+                          "description": "The name of the report file as stored in the system",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "mimeType",
+                          "description": "The MIME type of the report file indicating its format",
+                          "isRequired": true,
+                          "value": "video/mp4",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "example": "video/mp4",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "sizeBytes",
+                          "description": "The total size of the report file in bytes",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "integer",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "checksumSha256",
+                          "description": "SHA-256 checksum of the report file for integrity verification",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "storage",
+                          "description": "Information about the storage provider or system where the report is saved",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "provider",
+                              "description": "The service or system provider responsible for processing or storing the report",
+                              "isRequired": false,
+                              "value": "s3",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "example": "s3",
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "bucket",
+                              "description": "The name of the storage bucket where the report is saved",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "key",
+                              "description": "The unique identifier or path key for the report in storage",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "region",
+                              "description": "The geographic region where the report was processed or stored",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "createdAt",
+                          "description": "The timestamp when the moderation report was created in ISO 8601 format",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "format": "date-time",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "expiresAt",
+                          "description": "The timestamp when the report will expire and no longer be accessible, in ISO 8601 format",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "format": "date-time",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "metadata",
+                          "description": "Custom metadata associated with the moderation job or report",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "reportUrl",
+                  "description": "A publicly accessible URL or link to download the moderation report",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "format": "uri",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "error",
+              "description": "Details about any error that occurred during report generation",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "code",
+                  "description": "A code representing the status or error related to the moderation report",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "message",
+                  "description": "A descriptive message providing context about the status or error",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "retriable",
+                  "description": "Indicates whether the moderation job can be retried upon failure",
+                  "isRequired": false,
+                  "value": "false",
+                  "valueType": "boolean",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "defaultValue": "false",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "createdAt",
+              "description": "The timestamp when the moderation report was created in ISO 8601 format",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "updatedAt",
+              "description": "The timestamp indicating when the report was last updated in ISO 8601 format",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "meta",
+              "description": "Additional metadata related to the moderation report, provided as key-value pairs",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 201,
+      "description": "Report job created (export_report)",
+      "contentType": "application/json"
+    },
+    {
+      "name": "400",
+      "status": "Bad Request",
+      "body": [
+        {
+          "name": "error",
+          "description": "An error object containing specific details about any issues encountered during the report creation process.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A code representing the status or error related to the moderation report",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A descriptive message providing context about the status or error",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Detailed information or description related to the report status or error",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated unique identifier for the request, useful for support and troubleshooting",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 400,
+      "description": "Bad request",
+      "contentType": "application/json"
+    },
+    {
+      "name": "401",
+      "status": "Unauthorized",
+      "body": [
+        {
+          "name": "error",
+          "description": "An error object containing specific details about any issues encountered during the report creation process.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A status code representing the outcome of the moderation report request.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A human-readable message summarizing the status or result of the moderation report request.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information or context related to the moderation report response, typically providing insights into results or errors.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "A unique identifier generated by the server for tracking and support purposes related to this specific request.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

@@ -1,0 +1,1 @@
+Use this section to modify an existing policy’s details and rules, including its name, description, status, and scoring thresholds. It enables you to customize how the policy evaluates categories and define specific actions triggered under different conditions, ensuring your policy stays aligned with your evolving requirements.

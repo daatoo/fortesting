@@ -1,0 +1,1 @@
+The Health check section provides real-time insight into the current operational status of the BigReal service. Users can verify system availability, view version details, and confirm the service region to ensure everything is functioning as expected. In case of issues, detailed error information is returned to assist with troubleshooting and support.

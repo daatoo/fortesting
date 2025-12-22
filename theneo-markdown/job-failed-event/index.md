@@ -1,0 +1,1 @@
+The Job failed event section allows you to receive and handle notifications whenever a job encounters an error during processing. This enables you to programmatically track failed jobs, inspect detailed error information, and implement appropriate error handling or alerting workflows.

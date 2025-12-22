@@ -1,0 +1,1 @@
+Retrieve a paginated list of files stored within your BigReal account, including detailed metadata such as file status, purpose, size, storage location, and creation date. This allows you to efficiently browse, filter, and manage your files programmatically.

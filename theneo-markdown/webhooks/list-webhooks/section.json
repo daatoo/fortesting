@@ -1,0 +1,399 @@
+{
+  "endpoints": {
+    "method": "get",
+    "path": "/webhooks"
+  },
+  "request": {
+    "query": [
+      {
+        "name": "cursor",
+        "description": "Cursor for paginating through webhook results",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "limit",
+        "description": "Maximum number of webhooks to return per page",
+        "isRequired": false,
+        "value": "25",
+        "valueType": "integer",
+        "items": [],
+        "options": {
+          "minimum": 1,
+          "maximum": 200,
+          "defaultValue": "25",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "body": [],
+    "header": [
+      {
+        "name": "Authorization",
+        "description": "Authorization token supplied in the request header for secure access",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key provided in the request header for authenticating the client",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [],
+    "contentType": "",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad579416f6"
+  },
+  "responses": [
+    {
+      "name": "200",
+      "status": "OK",
+      "body": [
+        {
+          "name": "items",
+          "description": "Array of webhook objects returned in the response",
+          "isRequired": true,
+          "value": "",
+          "valueType": "array",
+          "items": [
+            {
+              "name": "0",
+              "description": "Placeholder for array index in webhook list responses",
+              "isRequired": false,
+              "value": "",
+              "valueType": "array",
+              "items": [
+                {
+                  "name": "id",
+                  "description": "Unique identifier for the webhook",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "pattern": "^whk_[A-Za-z0-9]{16,}$",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "url",
+                  "description": "The endpoint URL configured to receive webhook events",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "format": "uri",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "events",
+                  "description": "List of event types that the webhook is subscribed to",
+                  "isRequired": true,
+                  "value": "job.succeeded",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "Placeholder for array index in webhook list responses",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [],
+                      "options": {
+                        "minItems": 1,
+                        "enumValue": [
+                          {
+                            "value": "job.succeeded"
+                          },
+                          {
+                            "value": "job.failed"
+                          },
+                          {
+                            "value": "file.ready"
+                          },
+                          {
+                            "value": "policy.updated"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "minItems": 1,
+                    "enumValue": [
+                      {
+                        "value": "job.succeeded"
+                      },
+                      {
+                        "value": "job.failed"
+                      },
+                      {
+                        "value": "file.ready"
+                      },
+                      {
+                        "value": "policy.updated"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "status",
+                  "description": "Current status of the webhook (e.g., active, disabled)",
+                  "isRequired": true,
+                  "value": "active",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "active"
+                      },
+                      {
+                        "value": "paused"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "secret",
+                  "description": "Secret key used to verify the authenticity of webhook payloads; only returned when creating a webhook",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "createdAt",
+                  "description": "Timestamp indicating when the webhook was created",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "format": "date-time",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "updatedAt",
+                  "description": "Timestamp indicating when the webhook was last updated",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "format": "date-time",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        },
+        {
+          "name": "nextCursor",
+          "description": "Cursor value for retrieving the next page of results",
+          "isRequired": true,
+          "value": "",
+          "valueType": "string",
+          "items": [],
+          "options": {
+            "nullable": true,
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 200,
+      "description": "Webhooks",
+      "contentType": "application/json"
+    },
+    {
+      "name": "401",
+      "status": "Unauthorized",
+      "body": [
+        {
+          "name": "error",
+          "description": "Error object containing details about any issues encountered",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "Error or status code associated with the request or webhook",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message accompanying the response or error",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information or context related to the response or error",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique server-generated identifier for tracking and support purposes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

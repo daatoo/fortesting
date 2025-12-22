@@ -1,0 +1,616 @@
+{
+  "endpoints": {
+    "method": "get",
+    "path": "/policies/{policyId}"
+  },
+  "request": {
+    "query": [],
+    "body": [],
+    "header": [
+      {
+        "name": "Authorization",
+        "description": "The authorization token used to verify the identity and permissions of the requester.",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "The API key provided to authenticate the request.",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [
+      {
+        "name": "policyId",
+        "description": "The unique identifier of the policy to retrieve.",
+        "isRequired": true,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "pattern": "^pol_[A-Za-z0-9]{16,}$",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "contentType": "",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad57941472"
+  },
+  "responses": [
+    {
+      "name": "200",
+      "status": "OK",
+      "body": [
+        {
+          "name": "policy",
+          "description": "The full policy object containing all configuration and metadata.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "id",
+              "description": "The unique identifier assigned to the specific policy instance.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "pattern": "^pol_[A-Za-z0-9]{16,}$",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "name",
+              "description": "The official name of the policy.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "description",
+              "description": "A human-readable explanation outlining the purpose and scope of the policy.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "status",
+              "description": "The current state of the policy, such as active, inactive, or archived.",
+              "isRequired": true,
+              "value": "active",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "active"
+                  },
+                  {
+                    "value": "archived"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "rules",
+              "description": "A collection of conditions and logic that define the behavior of the policy.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "categories",
+                  "description": "The classification groups associated with the policy or its conditions.",
+                  "isRequired": true,
+                  "value": "nudity",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "The first element in an ordered list, typically representing the initial action or condition.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "nudity"
+                          },
+                          {
+                            "value": "sexual"
+                          },
+                          {
+                            "value": "violence"
+                          },
+                          {
+                            "value": "gore"
+                          },
+                          {
+                            "value": "hate"
+                          },
+                          {
+                            "value": "harassment"
+                          },
+                          {
+                            "value": "self_harm"
+                          },
+                          {
+                            "value": "drugs"
+                          },
+                          {
+                            "value": "weapons"
+                          },
+                          {
+                            "value": "alcohol"
+                          },
+                          {
+                            "value": "profanity"
+                          },
+                          {
+                            "value": "pii"
+                          },
+                          {
+                            "value": "spam"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "nudity"
+                      },
+                      {
+                        "value": "sexual"
+                      },
+                      {
+                        "value": "violence"
+                      },
+                      {
+                        "value": "gore"
+                      },
+                      {
+                        "value": "hate"
+                      },
+                      {
+                        "value": "harassment"
+                      },
+                      {
+                        "value": "self_harm"
+                      },
+                      {
+                        "value": "drugs"
+                      },
+                      {
+                        "value": "weapons"
+                      },
+                      {
+                        "value": "alcohol"
+                      },
+                      {
+                        "value": "profanity"
+                      },
+                      {
+                        "value": "pii"
+                      },
+                      {
+                        "value": "spam"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "thresholds",
+                  "description": "Mapping of categories to their respective score thresholds that trigger policy actions.",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "actions",
+                  "description": "A list of actions triggered by the policy when conditions are met.",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [
+                    {
+                      "name": "onFlag",
+                      "description": "The action or flag set when the policy conditions are met indicating a flagged status.",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "block"
+                          },
+                          {
+                            "value": "blur"
+                          },
+                          {
+                            "value": "mute"
+                          },
+                          {
+                            "value": "redact_text"
+                          },
+                          {
+                            "value": "quarantine"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "onReviewRequired",
+                      "description": "The action triggered when the policy determines that manual review is necessary.",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "quarantine"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "onUnknown",
+                      "description": "The action taken when the policy encounters an undefined or unknown state.",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "quarantine"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "createdAt",
+              "description": "The ISO 8601 timestamp indicating when the policy was created.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "updatedAt",
+              "description": "The ISO 8601 timestamp indicating when the policy was last updated.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 200,
+      "description": "Policy",
+      "contentType": "application/json"
+    },
+    {
+      "name": "401",
+      "status": "Unauthorized",
+      "body": [
+        {
+          "name": "error",
+          "description": "Error details returned when the request fails or the operation cannot be completed.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A machine-readable code representing the response status or error type.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A descriptive message providing additional context about the response or error.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Detailed information or context related to the response or error.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "A server-generated unique identifier for the request, used for tracing and support.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    },
+    {
+      "name": "404",
+      "status": "Not Found",
+      "body": [
+        {
+          "name": "error",
+          "description": "Error details returned when the request fails or the operation cannot be completed.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A machine-readable code representing the response status or error type.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A descriptive message providing additional context about the response or error.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Detailed information or context related to the response or error.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "A server-generated unique identifier for the request, used for tracing and support.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 404,
+      "description": "Not found",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

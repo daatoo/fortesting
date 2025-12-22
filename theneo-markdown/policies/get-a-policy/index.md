@@ -1,0 +1,1 @@
+Retrieve detailed information about a specific policy, including its status, rules, categories, thresholds, and associated actions. This allows users to understand the configuration and criteria governing the policy for effective management and enforcement within the BigReal platform.

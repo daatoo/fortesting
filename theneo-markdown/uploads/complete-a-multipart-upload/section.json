@@ -1,0 +1,716 @@
+{
+  "endpoints": {
+    "method": "post",
+    "path": "uploads/multipart/{fileId}/complete"
+  },
+  "request": {
+    "query": [],
+    "body": [
+      {
+        "name": "uploadId",
+        "description": "The unique identifier for the multipart upload session.",
+        "isRequired": true,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "parts",
+        "description": "A list of parts included in the multipart upload request body.",
+        "isRequired": true,
+        "value": "",
+        "valueType": "array",
+        "items": [
+          {
+            "name": "0",
+            "description": "An array item representing an individual part in the multipart upload request body.",
+            "isRequired": false,
+            "value": "",
+            "valueType": "array",
+            "items": [
+              {
+                "name": "partNumber",
+                "description": "The sequential number identifying the specific part in the multipart upload.",
+                "isRequired": true,
+                "value": "",
+                "valueType": "integer",
+                "items": [],
+                "options": {
+                  "minimum": 1,
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "etag",
+                "description": "The entity tag (ETag) representing the checksum of the uploaded part.",
+                "isRequired": true,
+                "value": "",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              }
+            ],
+            "options": {
+              "minItems": 1,
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          }
+        ],
+        "options": {
+          "minItems": 1,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "header": [
+      {
+        "name": "Idempotency-Key",
+        "description": "Provide a unique key to make POST requests idempotent and safe to retry.",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 8,
+          "maxLength": 128,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "The Bearer token or credential used to authorize the request.",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "The API key used to authenticate the request.",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [
+      {
+        "name": "fileId",
+        "description": "The unique identifier of the file being uploaded, provided as a path parameter.",
+        "isRequired": true,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "pattern": "^file_[A-Za-z0-9]{16,}$",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "6943b8eb49c26e6add415993"
+  },
+  "responses": [
+    {
+      "body": [
+        {
+          "name": "file",
+          "description": "An object containing detailed information about the uploaded file.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "id",
+              "description": "The unique identifier associated with the upload or file resource.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "pattern": "^file_[A-Za-z0-9]{16,}$",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "status",
+              "description": "The current status of the upload operation.",
+              "isRequired": true,
+              "value": "uploaded",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "uploaded"
+                  },
+                  {
+                    "value": "processing"
+                  },
+                  {
+                    "value": "ready"
+                  },
+                  {
+                    "value": "failed"
+                  },
+                  {
+                    "value": "deleted"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "purpose",
+              "description": "The intended use or classification of the uploaded file.",
+              "isRequired": true,
+              "value": "input",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "input"
+                  },
+                  {
+                    "value": "output"
+                  },
+                  {
+                    "value": "evidence"
+                  },
+                  {
+                    "value": "export"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "filename",
+              "description": "The original name of the uploaded file.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "mimeType",
+              "description": "The MIME type of the uploaded file indicating its format.",
+              "isRequired": true,
+              "value": "video/mp4",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "video/mp4",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "sizeBytes",
+              "description": "The total size of the uploaded file in bytes.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "integer",
+              "items": [],
+              "options": {
+                "minimum": 0,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "checksumSha256",
+              "description": "The SHA-256 checksum of the complete uploaded file for data integrity verification.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "storage",
+              "description": "The storage class or tier applied to the uploaded file.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "provider",
+                  "description": "The storage service provider managing the file upload.",
+                  "isRequired": false,
+                  "value": "s3",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "example": "s3",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "bucket",
+                  "description": "The storage bucket where the file is saved.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "key",
+                  "description": "The unique storage key assigned to the uploaded file.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "region",
+                  "description": "The geographic region where the file is stored.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "createdAt",
+              "description": "The timestamp when the upload was completed, in ISO 8601 format.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "expiresAt",
+              "description": "The expiration timestamp of the uploaded file or the upload session, in ISO 8601 format.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "metadata",
+              "description": "A key-value map of custom metadata associated with the file.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 200,
+      "description": "File status updated",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Details of any error encountered during the upload process.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A status code indicating the result of the upload operation.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A human-readable message describing the result of the upload operation.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context about the upload status or error.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated identifier for the request, useful for troubleshooting and support.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 400,
+      "description": "Bad request",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Short identifier or type describing the error encountered during the upload completion process",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status code representing the result of the multipart upload completion request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable description detailing the outcome or error of the multipart upload completion",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context or specifics related to the response or error",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique identifier assigned by the server to track and reference the specific API request for support purposes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Short identifier or type describing the error encountered during the upload completion process",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status code representing the result of the multipart upload completion request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable description detailing the outcome or error of the multipart upload completion",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context or specifics related to the response or error",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique identifier assigned by the server to track and reference the specific API request for support purposes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 404,
+      "description": "Not found",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

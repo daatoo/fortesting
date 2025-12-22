@@ -1,0 +1,1 @@
+Generate a detailed moderation report based on the results of a completed job to assess content compliance and policy adherence. Users can customize the report format and include supporting evidence, enabling thorough review and analysis of flagged content and moderation decisions.

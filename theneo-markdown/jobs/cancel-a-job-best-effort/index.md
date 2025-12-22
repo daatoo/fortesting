@@ -1,0 +1,1 @@
+Cancel a job on a best-effort basis to halt its processing and free associated resources. This action initiates the cancellation process and returns the current status and details of the job, allowing users to track its progress and outcome.

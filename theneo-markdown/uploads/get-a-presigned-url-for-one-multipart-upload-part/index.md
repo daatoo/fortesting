@@ -1,0 +1,1 @@
+Generate a presigned URL to securely upload a specific part of a multipart file. This enables efficient, parallel uploads by providing temporary access with all necessary headers and expiration details for the designated part of the upload.

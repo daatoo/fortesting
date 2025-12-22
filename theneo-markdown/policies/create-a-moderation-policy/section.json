@@ -1,0 +1,1199 @@
+{
+  "endpoints": {
+    "method": "post",
+    "path": "policies"
+  },
+  "request": {
+    "query": [],
+    "body": [
+      {
+        "name": "name",
+        "description": "The name of the moderation policy; used for identification and reference",
+        "isRequired": true,
+        "value": "Default Safety Policy",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 3,
+          "maxLength": 80,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "description",
+        "description": "A detailed description of the moderation policy’s purpose and scope",
+        "isRequired": false,
+        "value": "Blocks high-risk content; blurs/mutes medium-risk.",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "maxLength": 500,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "rules",
+        "description": "A collection of conditional statements defining the criteria for triggering actions within the policy.",
+        "isRequired": true,
+        "value": "",
+        "valueType": "object",
+        "items": [
+          {
+            "name": "categories",
+            "description": "A list of content categories covered by this moderation policy",
+            "isRequired": true,
+            "value": "nudity",
+            "valueType": "array",
+            "items": [
+              {
+                "name": "0",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "nudity",
+                "valueType": "array",
+                "items": [],
+                "options": {
+                  "enumValue": [
+                    {
+                      "value": "nudity"
+                    },
+                    {
+                      "value": "sexual"
+                    },
+                    {
+                      "value": "violence"
+                    },
+                    {
+                      "value": "gore"
+                    },
+                    {
+                      "value": "hate"
+                    },
+                    {
+                      "value": "harassment"
+                    },
+                    {
+                      "value": "self_harm"
+                    },
+                    {
+                      "value": "drugs"
+                    },
+                    {
+                      "value": "weapons"
+                    },
+                    {
+                      "value": "alcohol"
+                    },
+                    {
+                      "value": "profanity"
+                    },
+                    {
+                      "value": "pii"
+                    },
+                    {
+                      "value": "spam"
+                    }
+                  ],
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "1",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "sexual",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "2",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "violence",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "3",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "gore",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "4",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "hate",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "5",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "harassment",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "6",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "self_harm",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "7",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "drugs",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "8",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "weapons",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "9",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "profanity",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "10",
+                "description": "Reserved for internal use or future expansion; not currently applicable",
+                "isRequired": false,
+                "value": "pii",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              }
+            ],
+            "options": {
+              "enumValue": [
+                {
+                  "value": "nudity"
+                },
+                {
+                  "value": "sexual"
+                },
+                {
+                  "value": "violence"
+                },
+                {
+                  "value": "gore"
+                },
+                {
+                  "value": "hate"
+                },
+                {
+                  "value": "harassment"
+                },
+                {
+                  "value": "self_harm"
+                },
+                {
+                  "value": "drugs"
+                },
+                {
+                  "value": "weapons"
+                },
+                {
+                  "value": "alcohol"
+                },
+                {
+                  "value": "profanity"
+                },
+                {
+                  "value": "pii"
+                },
+                {
+                  "value": "spam"
+                }
+              ],
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          },
+          {
+            "name": "thresholds",
+            "description": "Mapping of content categories to their respective moderation score thresholds for triggering actions",
+            "isRequired": true,
+            "value": "",
+            "valueType": "object",
+            "items": [
+              {
+                "name": "nudity",
+                "description": "Specifies criteria and thresholds for moderating nudity and sexually explicit content",
+                "isRequired": false,
+                "value": "0.75",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "sexual",
+                "description": "Defines moderation parameters for sexual content and explicit material",
+                "isRequired": false,
+                "value": "0.8",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "violence",
+                "description": "Specifies moderation rules and sensitivity levels for violent content",
+                "isRequired": false,
+                "value": "0.7",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "gore",
+                "description": "Defines parameters for identifying and moderating graphic or gory content",
+                "isRequired": false,
+                "value": "0.6",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "hate",
+                "description": "Configures detection thresholds and actions for hate speech or hateful content",
+                "isRequired": false,
+                "value": "0.55",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "harassment",
+                "description": "Sets parameters for identifying and managing harassment-related content",
+                "isRequired": false,
+                "value": "0.6",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "self_harm",
+                "description": "Configures detection and response criteria for content related to self-harm",
+                "isRequired": false,
+                "value": "0.5",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "drugs",
+                "description": "Sets moderation parameters related to drug references or imagery",
+                "isRequired": false,
+                "value": "0.65",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "weapons",
+                "description": "Defines the policy criteria and thresholds related to content involving weapons",
+                "isRequired": false,
+                "value": "0.7",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "profanity",
+                "description": "Sets thresholds and rules for detecting and managing profane or offensive language",
+                "isRequired": false,
+                "value": "0.7",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "pii",
+                "description": "Defines rules for detecting and handling personally identifiable information within content",
+                "isRequired": false,
+                "value": "0.5",
+                "valueType": "number",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              }
+            ],
+            "options": {
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          },
+          {
+            "name": "actions",
+            "description": "A list of actions triggered when the policy criteria are met, such as flagging or notifying.",
+            "isRequired": true,
+            "value": "",
+            "valueType": "object",
+            "items": [
+              {
+                "name": "onFlag",
+                "description": "Specifies the action to take when content is flagged by the moderation policy (e.g., block, review, notify)",
+                "isRequired": false,
+                "value": "blur",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "enumValue": [
+                    {
+                      "value": "allow"
+                    },
+                    {
+                      "value": "block"
+                    },
+                    {
+                      "value": "blur"
+                    },
+                    {
+                      "value": "mute"
+                    },
+                    {
+                      "value": "redact_text"
+                    },
+                    {
+                      "value": "quarantine"
+                    }
+                  ],
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "onReviewRequired",
+                "description": "The action triggered when content requires manual review as determined by the policy criteria.",
+                "isRequired": false,
+                "value": "quarantine",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "enumValue": [
+                    {
+                      "value": "allow"
+                    },
+                    {
+                      "value": "quarantine"
+                    }
+                  ],
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "onUnknown",
+                "description": "The designated action to take when content cannot be confidently classified by the policy rules.",
+                "isRequired": false,
+                "value": "quarantine",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "enumValue": [
+                    {
+                      "value": "allow"
+                    },
+                    {
+                      "value": "quarantine"
+                    }
+                  ],
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              }
+            ],
+            "options": {
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          }
+        ],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "header": [
+      {
+        "name": "Idempotency-Key",
+        "description": "A unique key to safely retry POST requests without creating duplicate policies",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 8,
+          "maxLength": 128,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "Standard HTTP Authorization header supporting bearer tokens for request authentication",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key used to authenticate requests and associate them with your account",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "6943b8ee49c26e6add415a3a"
+  },
+  "responses": [
+    {
+      "body": [
+        {
+          "name": "policy",
+          "description": "The complete moderation policy object, including rules, actions, and metadata.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "id",
+              "description": "The unique identifier assigned to the moderation policy.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "pattern": "^pol_[A-Za-z0-9]{16,}$",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "name",
+              "description": "The name assigned to the moderation policy, used for identification and reference.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "description",
+              "description": "A detailed explanation of the policy's purpose, scope, and usage guidelines.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "status",
+              "description": "The current operational state of the policy, such as active, inactive, or archived.",
+              "isRequired": true,
+              "value": "active",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "active"
+                  },
+                  {
+                    "value": "archived"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "rules",
+              "description": "A collection of conditional statements defining the criteria for triggering actions within the policy.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "categories",
+                  "description": "The set of content categories that the policy monitors and evaluates.",
+                  "isRequired": true,
+                  "value": "nudity",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "Index representing the first element in an array response, typically used for enumeration.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "nudity"
+                          },
+                          {
+                            "value": "sexual"
+                          },
+                          {
+                            "value": "violence"
+                          },
+                          {
+                            "value": "gore"
+                          },
+                          {
+                            "value": "hate"
+                          },
+                          {
+                            "value": "harassment"
+                          },
+                          {
+                            "value": "self_harm"
+                          },
+                          {
+                            "value": "drugs"
+                          },
+                          {
+                            "value": "weapons"
+                          },
+                          {
+                            "value": "alcohol"
+                          },
+                          {
+                            "value": "profanity"
+                          },
+                          {
+                            "value": "pii"
+                          },
+                          {
+                            "value": "spam"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "nudity"
+                      },
+                      {
+                        "value": "sexual"
+                      },
+                      {
+                        "value": "violence"
+                      },
+                      {
+                        "value": "gore"
+                      },
+                      {
+                        "value": "hate"
+                      },
+                      {
+                        "value": "harassment"
+                      },
+                      {
+                        "value": "self_harm"
+                      },
+                      {
+                        "value": "drugs"
+                      },
+                      {
+                        "value": "weapons"
+                      },
+                      {
+                        "value": "alcohol"
+                      },
+                      {
+                        "value": "profanity"
+                      },
+                      {
+                        "value": "pii"
+                      },
+                      {
+                        "value": "spam"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "thresholds",
+                  "description": "A mapping of content categories to their respective score thresholds that determine policy enforcement.",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "actions",
+                  "description": "A list of actions triggered when the policy criteria are met, such as flagging or notifying.",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [
+                    {
+                      "name": "onFlag",
+                      "description": "The specific behavior or action executed when content is flagged by the moderation policy.",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "block"
+                          },
+                          {
+                            "value": "blur"
+                          },
+                          {
+                            "value": "mute"
+                          },
+                          {
+                            "value": "redact_text"
+                          },
+                          {
+                            "value": "quarantine"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "onReviewRequired",
+                      "description": "The action triggered when content requires manual review as determined by the policy criteria.",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "quarantine"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "onUnknown",
+                      "description": "The designated action to take when content cannot be confidently classified by the policy rules.",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "quarantine"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "createdAt",
+              "description": "The ISO 8601 timestamp indicating when the policy was initially created.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "updatedAt",
+              "description": "The ISO 8601 timestamp indicating when the policy was last modified.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 201,
+      "description": "Policy created",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Information describing any errors encountered during the processing of the request.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A short string or number representing the status or error code related to the policy operation.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A human-readable message providing additional context about the response or error.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information or context explaining the status, error, or response.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "A unique identifier generated by the server to track and assist with support requests.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 400,
+      "description": "Bad request",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Information describing any errors encountered during the processing of the request.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A short string or number representing the status or error code related to the policy operation.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A human-readable message providing additional context about the response or error.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information or context explaining the status, error, or response.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "A unique identifier generated by the server to track and assist with support requests.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

@@ -1,0 +1,1 @@
+Use this section to exchange your credentials for an access token, enabling authenticated interactions with the BigReal API. By providing the necessary credentials, you can obtain a token that grants access to protected resources and includes details for token expiration and renewal.

@@ -1,0 +1,1 @@
+Create a new file record to initiate the upload process by specifying its details and intended purpose. Upon creation, receive a secure, time-limited upload URL along with the necessary metadata to upload the file content efficiently and reliably.

@@ -1,0 +1,1 @@
+Retrieve detailed information about a specific webhook by its unique identifier. This allows you to view the webhook’s configuration, status, subscribed events, and metadata for managing integrations and troubleshooting.

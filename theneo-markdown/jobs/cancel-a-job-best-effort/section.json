@@ -1,0 +1,1751 @@
+{
+  "endpoints": {
+    "method": "delete",
+    "path": "/jobs/{jobId}"
+  },
+  "request": {
+    "query": [],
+    "body": [],
+    "header": [
+      {
+        "name": "Idempotency-Key",
+        "description": "A unique key provided in the header to ensure the request is processed only once, preventing duplicate operations on retries",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 8,
+          "maxLength": 128,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "The bearer token or credentials included in the header for user authentication and authorization",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "The API key used for authenticating the request, passed in the request header",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [
+      {
+        "name": "jobId",
+        "description": "The unique identifier for the job to be canceled, provided as a path parameter",
+        "isRequired": true,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "pattern": "^job_[A-Za-z0-9]{16,}$",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "contentType": "",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad5794163b"
+  },
+  "responses": [
+    {
+      "name": "202",
+      "status": "Accepted",
+      "body": [
+        {
+          "name": "job",
+          "description": "The primary job object containing all relevant details and status information.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "id",
+              "description": "The unique identifier associated with a specific resource or job instance",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "pattern": "^job_[A-Za-z0-9]{16,}$",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "type",
+              "description": "The classification or category type assigned to the job",
+              "isRequired": true,
+              "value": "moderate_text",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "moderate_text"
+                  },
+                  {
+                    "value": "moderate_image"
+                  },
+                  {
+                    "value": "moderate_audio"
+                  },
+                  {
+                    "value": "moderate_video"
+                  },
+                  {
+                    "value": "redact_video"
+                  },
+                  {
+                    "value": "redact_audio"
+                  },
+                  {
+                    "value": "transcribe_audio"
+                  },
+                  {
+                    "value": "export_report"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "status",
+              "description": "The current state of the job after the cancellation attempt, such as canceled, in progress, or failed",
+              "isRequired": true,
+              "value": "queued",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "queued"
+                  },
+                  {
+                    "value": "running"
+                  },
+                  {
+                    "value": "succeeded"
+                  },
+                  {
+                    "value": "failed"
+                  },
+                  {
+                    "value": "canceled"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "policyId",
+              "description": "The identifier of the policy applied to the job for assessment or processing",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "input",
+              "description": "The original data or parameters submitted when initiating the job",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "progress",
+              "description": "The current progress of the job expressed as a percentage from 0 to 100",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "percent",
+                  "description": "The percentage value indicating completion or progress of a given task or evaluation",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "number",
+                  "items": [],
+                  "options": {
+                    "minimum": 0,
+                    "maximum": 100,
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "stage",
+                  "description": "The current processing stage of the job, such as queued, running, or completed",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "etaSeconds",
+                  "description": "The estimated time remaining for job completion, expressed in seconds",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "integer",
+                  "items": [],
+                  "options": {
+                    "minimum": 0,
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "result",
+              "description": "The final outcome or result produced by the job.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "summary",
+                  "description": "A brief overview or synopsis of the job’s results or status",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [
+                    {
+                      "name": "decision",
+                      "description": "The outcome determined for the job cancellation request, indicating whether the cancellation was successful or not",
+                      "isRequired": false,
+                      "value": "allow",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "enumValue": [
+                          {
+                            "value": "allow"
+                          },
+                          {
+                            "value": "block"
+                          },
+                          {
+                            "value": "review"
+                          },
+                          {
+                            "value": "redacted"
+                          }
+                        ],
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "maxScore",
+                      "description": "The highest possible score achievable within the job’s scoring system",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "number",
+                      "items": [],
+                      "options": {
+                        "minimum": 0,
+                        "maximum": 1,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "flaggedCategories",
+                      "description": "A list of categories flagged during the job evaluation process, highlighting areas of concern or interest",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "0",
+                          "description": "[Please provide context or rename parameter for accurate description]",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "array",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "scores",
+                  "description": "A collection of numerical values representing the evaluation metrics associated with the job",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "[Please provide context or rename parameter for accurate description]",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "category",
+                          "description": "The classification category assigned to the job or its content",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "score",
+                          "description": "A numerical value representing the evaluation or relevance of the job outcome",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "number",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "maximum": 1,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "threshold",
+                          "description": "The minimum score required to trigger specific actions or decisions within the job processing logic",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "number",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "maximum": 1,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "status",
+                          "description": "The current state of the job after the cancellation attempt, such as canceled, in progress, or failed",
+                          "isRequired": true,
+                          "value": "ok",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "ok"
+                              },
+                              {
+                                "value": "flagged"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "findings",
+                  "description": "A collection of detected items, issues, or insights identified during the execution of the job.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "A placeholder or index key, typically representing the first element in an array or list.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "type",
+                          "description": "The classification or category type assigned to the job",
+                          "isRequired": true,
+                          "value": "timestamp",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "timestamp"
+                              },
+                              {
+                                "value": "region"
+                              },
+                              {
+                                "value": "text_span"
+                              },
+                              {
+                                "value": "object"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "message",
+                          "description": "A descriptive message providing additional context or information about the response or error",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "confidence",
+                          "description": "The confidence level expressed as a decimal between 0 and 1, indicating the certainty of the decision made",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "number",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "maximum": 1,
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "timestamp",
+                          "description": "The exact date and time when the event or status update was recorded in ISO 8601 format",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "startMs",
+                              "description": "The timestamp marking the start of the job execution in milliseconds since epoch",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "endMs",
+                              "description": "The timestamp marking the end of the job execution in milliseconds since epoch",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "region",
+                          "description": "A defined area or section within an image, video frame, or dataset relevant to the job.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "x",
+                              "description": "The x-coordinate of a point or bounding box within a two-dimensional space.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "y",
+                              "description": "The y-coordinate of a point or bounding box within a two-dimensional space.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "w",
+                              "description": "The width dimension of a visual element or bounding box, measured in pixels.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "h",
+                              "description": "The height dimension of a visual element or bounding box, measured in pixels.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "number",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "frameIndex",
+                              "description": "The zero-based index of a video frame referenced within the job data.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "textSpan",
+                          "description": "The specific span or range of text associated with the response, often defined by start and end indices.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "start",
+                              "description": "The starting position or timestamp of the relevant segment within the job's data.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "end",
+                              "description": "The ending position or timestamp of the relevant segment within the job's data.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "integer",
+                              "items": [],
+                              "options": {
+                                "minimum": 0,
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "snippet",
+                              "description": "A short excerpt or segment of text or media returned as part of the job results.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "labels",
+                          "description": "An array of descriptive tags or categories assigned to a segment or item within the job data.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "array",
+                          "items": [
+                            {
+                              "name": "0",
+                              "description": "A placeholder or index key, typically representing the first element in an array or list.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "array",
+                              "items": [],
+                              "options": {
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "transcript",
+                  "description": "The full or partial transcription of audio or video content processed by the job.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "A placeholder or index key, typically representing the first element in an array or list.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "startMs",
+                          "description": "The start time of a segment expressed in milliseconds from the beginning of the media or dataset.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "integer",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "endMs",
+                          "description": "The end time of a segment expressed in milliseconds from the beginning of the media or dataset.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "integer",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "text",
+                          "description": "Raw or processed text content associated with the job output.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "speaker",
+                          "description": "Identifier or label representing the speaker associated with a segment in audio or transcript data.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "words",
+                          "description": "An array of individual words identified within a transcript segment.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "array",
+                          "items": [
+                            {
+                              "name": "0",
+                              "description": "A placeholder or index key, typically representing the first element in an array or list.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "array",
+                              "items": [
+                                {
+                                  "name": "startMs",
+                                  "description": "The start time of a segment expressed in milliseconds from the beginning of the media or dataset.",
+                                  "isRequired": true,
+                                  "value": "",
+                                  "valueType": "integer",
+                                  "items": [],
+                                  "options": {
+                                    "minimum": 0,
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                },
+                                {
+                                  "name": "endMs",
+                                  "description": "The end time of a segment expressed in milliseconds from the beginning of the media or dataset.",
+                                  "isRequired": true,
+                                  "value": "",
+                                  "valueType": "integer",
+                                  "items": [],
+                                  "options": {
+                                    "minimum": 0,
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                },
+                                {
+                                  "name": "word",
+                                  "description": "A single word extracted or identified within the transcript or text data.",
+                                  "isRequired": true,
+                                  "value": "",
+                                  "valueType": "string",
+                                  "items": [],
+                                  "options": {
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                },
+                                {
+                                  "name": "confidence",
+                                  "description": "A numerical value representing the confidence level or accuracy of the returned result, typically between 0 and 1.",
+                                  "isRequired": false,
+                                  "value": "",
+                                  "valueType": "number",
+                                  "items": [],
+                                  "options": {
+                                    "minimum": 0,
+                                    "maximum": 1,
+                                    "nullable": true,
+                                    "xml": {
+                                      "prefix": null
+                                    },
+                                    "schemaNames": []
+                                  },
+                                  "complexItems": []
+                                }
+                              ],
+                              "options": {
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "outputFiles",
+                  "description": "List of files generated as output from the job execution.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [
+                    {
+                      "name": "0",
+                      "description": "An indexed element, typically representing the first item in a list or array related to the job response.",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "array",
+                      "items": [
+                        {
+                          "name": "id",
+                          "description": "A unique identifier assigned to a segment, item, or job instance.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "pattern": "^file_[A-Za-z0-9]{16,}$",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "status",
+                          "description": "Indicates the current state of the job after the cancellation attempt, such as 'cancelled', 'in_progress', or 'failed'.",
+                          "isRequired": true,
+                          "value": "uploaded",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "uploaded"
+                              },
+                              {
+                                "value": "processing"
+                              },
+                              {
+                                "value": "ready"
+                              },
+                              {
+                                "value": "failed"
+                              },
+                              {
+                                "value": "deleted"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "purpose",
+                          "description": "A description of the intended use or goal of the job or a specific data segment.",
+                          "isRequired": true,
+                          "value": "input",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "enumValue": [
+                              {
+                                "value": "input"
+                              },
+                              {
+                                "value": "output"
+                              },
+                              {
+                                "value": "evidence"
+                              },
+                              {
+                                "value": "export"
+                              }
+                            ],
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "filename",
+                          "description": "The name of the file associated with the job, including its extension.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "mimeType",
+                          "description": "The MIME type of files or data associated with the job.",
+                          "isRequired": true,
+                          "value": "video/mp4",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "example": "video/mp4",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "sizeBytes",
+                          "description": "The total size of the job payload in bytes.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "integer",
+                          "items": [],
+                          "options": {
+                            "minimum": 0,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "checksumSha256",
+                          "description": "SHA-256 hash checksum used to verify the integrity of job-related data.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "storage",
+                          "description": "Details about the storage mechanism or location used for job artifacts.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [
+                            {
+                              "name": "provider",
+                              "description": "The external service or system responsible for processing the job.",
+                              "isRequired": false,
+                              "value": "s3",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "example": "s3",
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "bucket",
+                              "description": "The storage bucket where job-related files or data are stored.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "key",
+                              "description": "A unique identifier representing the resource associated with the job.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            },
+                            {
+                              "name": "region",
+                              "description": "The geographical region where the job is being processed or stored.",
+                              "isRequired": false,
+                              "value": "",
+                              "valueType": "string",
+                              "items": [],
+                              "options": {
+                                "nullable": true,
+                                "xml": {
+                                  "prefix": null
+                                },
+                                "schemaNames": []
+                              },
+                              "complexItems": []
+                            }
+                          ],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "createdAt",
+                          "description": "Timestamp marking when the job was initially created, in ISO 8601 format.",
+                          "isRequired": true,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "format": "date-time",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "expiresAt",
+                          "description": "Timestamp indicating when the job or its results expire, in ISO 8601 format.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "string",
+                          "items": [],
+                          "options": {
+                            "nullable": true,
+                            "format": "date-time",
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        },
+                        {
+                          "name": "metadata",
+                          "description": "Key-value pairs containing user-defined metadata associated with the job.",
+                          "isRequired": false,
+                          "value": "",
+                          "valueType": "object",
+                          "items": [],
+                          "options": {
+                            "xml": {
+                              "prefix": null
+                            },
+                            "schemaNames": []
+                          },
+                          "complexItems": []
+                        }
+                      ],
+                      "options": {
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "reportUrl",
+                  "description": "URL linking to a detailed report or summary of the job execution.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "format": "uri",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "error",
+              "description": "Error object containing code and message describing any failure encountered.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [
+                {
+                  "name": "code",
+                  "description": "A machine-readable status or error code associated with the job outcome.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "message",
+                  "description": "Human-readable message providing additional information about the job status.",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "retriable",
+                  "description": "Boolean flag indicating whether the job can be retried upon failure.",
+                  "isRequired": false,
+                  "value": "false",
+                  "valueType": "boolean",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "defaultValue": "false",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "createdAt",
+              "description": "Timestamp marking when the job was initially created, in ISO 8601 format.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "updatedAt",
+              "description": "Timestamp indicating the last time the job was updated, in ISO 8601 format.",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "meta",
+              "description": "A collection of additional, non-standard information or attributes related to the job.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 202,
+      "description": "Cancel requested",
+      "contentType": "application/json"
+    },
+    {
+      "name": "401",
+      "status": "Unauthorized",
+      "body": [
+        {
+          "name": "error",
+          "description": "Error object containing code and message describing any failure encountered.",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A machine-readable status or error code associated with the job outcome.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message providing additional information about the job status.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional context or information providing insight into the job status or errors.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Server-generated unique identifier for tracking and support purposes.",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    },
+    {
+      "name": "404",
+      "status": "Not Found",
+      "body": [
+        {
+          "name": "error",
+          "description": "A boolean indicating whether the request resulted in an error (true) or succeeded (false)",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A machine-readable status or error code associated with the job outcome.",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message providing additional information about the job status.",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context about the error or status, useful for debugging",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "A unique identifier for the request, generated by the server to assist with support and troubleshooting",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 404,
+      "description": "Not found",
+      "contentType": "application/json"
+    },
+    {
+      "name": "409",
+      "status": "Conflict",
+      "body": [
+        {
+          "name": "error",
+          "description": "A boolean indicating whether the request resulted in an error (true) or succeeded (false)",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "A short string identifying the type of error or status returned by the server",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "A human-readable message describing the outcome of the request or the nature of the error",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information providing context about the error or status, useful for debugging",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "A unique identifier for the request, generated by the server to assist with support and troubleshooting",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 409,
+      "description": "Conflict",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

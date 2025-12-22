@@ -1,0 +1,539 @@
+{
+  "endpoints": {
+    "method": "post",
+    "path": "/webhooks"
+  },
+  "request": {
+    "query": [],
+    "body": [
+      {
+        "name": "url",
+        "description": "Endpoint URL where webhook events will be delivered",
+        "isRequired": true,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "format": "uri",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "events",
+        "description": "List of event types that will trigger the webhook notifications",
+        "isRequired": true,
+        "value": "job.succeeded",
+        "valueType": "array",
+        "items": [
+          {
+            "name": "0",
+            "description": "Raw payload representing the webhook configuration details to be created",
+            "isRequired": false,
+            "value": "",
+            "valueType": "array",
+            "items": [],
+            "options": {
+              "minItems": 1,
+              "enumValue": [
+                {
+                  "value": "job.succeeded"
+                },
+                {
+                  "value": "job.failed"
+                },
+                {
+                  "value": "file.ready"
+                },
+                {
+                  "value": "policy.updated"
+                }
+              ],
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          }
+        ],
+        "options": {
+          "minItems": 1,
+          "enumValue": [
+            {
+              "value": "job.succeeded"
+            },
+            {
+              "value": "job.failed"
+            },
+            {
+              "value": "file.ready"
+            },
+            {
+              "value": "policy.updated"
+            }
+          ],
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "status",
+        "description": "Current state of the webhook, such as active or inactive",
+        "isRequired": false,
+        "value": "active",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "defaultValue": "active",
+          "enumValue": [
+            {
+              "value": "active"
+            },
+            {
+              "value": "paused"
+            }
+          ],
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "header": [
+      {
+        "name": "Idempotency-Key",
+        "description": "Unique key to ensure the POST request is processed only once, preventing duplicate webhook creation on retries",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "minLength": 8,
+          "maxLength": 128,
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "Bearer token or credentials used to authorize the request",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key used to authenticate the request against the server",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad579416dc"
+  },
+  "responses": [
+    {
+      "name": "201",
+      "status": "Created",
+      "body": [
+        {
+          "name": "webhook",
+          "description": "Object containing the complete webhook configuration and metadata",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "id",
+              "description": "Unique identifier assigned to the webhook upon creation",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "pattern": "^whk_[A-Za-z0-9]{16,}$",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "url",
+              "description": "Endpoint URL where webhook events will be delivered",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "uri",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "events",
+              "description": "List of event types that will trigger the webhook notifications",
+              "isRequired": true,
+              "value": "job.succeeded",
+              "valueType": "array",
+              "items": [
+                {
+                  "name": "0",
+                  "description": "Raw payload representing the webhook configuration details to be created",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "array",
+                  "items": [],
+                  "options": {
+                    "minItems": 1,
+                    "enumValue": [
+                      {
+                        "value": "job.succeeded"
+                      },
+                      {
+                        "value": "job.failed"
+                      },
+                      {
+                        "value": "file.ready"
+                      },
+                      {
+                        "value": "policy.updated"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "minItems": 1,
+                "enumValue": [
+                  {
+                    "value": "job.succeeded"
+                  },
+                  {
+                    "value": "job.failed"
+                  },
+                  {
+                    "value": "file.ready"
+                  },
+                  {
+                    "value": "policy.updated"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "status",
+              "description": "Current state of the webhook, such as active or inactive",
+              "isRequired": true,
+              "value": "active",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "enumValue": [
+                  {
+                    "value": "active"
+                  },
+                  {
+                    "value": "paused"
+                  }
+                ],
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "secret",
+              "description": "Secret used to sign webhook payloads for verifying authenticity; returned only during creation",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "nullable": true,
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "createdAt",
+              "description": "Timestamp indicating when the webhook was created in ISO 8601 format",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "updatedAt",
+              "description": "Timestamp of the last update made to the webhook in ISO 8601 format",
+              "isRequired": true,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "format": "date-time",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 201,
+      "description": "Webhook created",
+      "contentType": "application/json"
+    },
+    {
+      "name": "400",
+      "status": "Bad Request",
+      "body": [
+        {
+          "name": "error",
+          "description": "Object detailing any errors encountered during the webhook creation process",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status code indicating the result of the webhook creation request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message providing context about the webhook creation response",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information or metadata related to the webhook creation response",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique identifier generated by the server to trace and debug the specific request",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 400,
+      "description": "Bad request",
+      "contentType": "application/json"
+    },
+    {
+      "name": "401",
+      "status": "Unauthorized",
+      "body": [
+        {
+          "name": "error",
+          "description": "Object detailing any errors encountered during the webhook creation process",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "HTTP status code indicating the result of the webhook creation request",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message providing context about the webhook creation response",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information or metadata related to the webhook creation response",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique identifier generated by the server to trace and debug the specific request",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

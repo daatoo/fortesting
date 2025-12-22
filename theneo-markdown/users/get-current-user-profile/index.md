@@ -1,0 +1,1 @@
+Retrieve detailed information about the currently authenticated user, including their ID, email, name, roles, and account creation date. This section allows users to access their profile data to personalize experiences or verify account details securely.

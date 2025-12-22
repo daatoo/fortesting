@@ -1,0 +1,349 @@
+{
+  "id": "6943b669988d4ea6574ad04c",
+  "name": "bigreal",
+  "lastExport": "2025-12-21T21:51:01.259Z",
+  "baseUrl": "https://api.aegisai.example.com/v1",
+  "sections": [
+    {
+      "name": "Getting Started",
+      "slug": "getting-started",
+      "children": [
+        {
+          "name": "Introduction",
+          "slug": "getting-started/introduction",
+          "children": [],
+          "icon": "6",
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "What's New in V5",
+          "slug": "getting-started/what-s-new-in-v5",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Authentication",
+          "slug": "getting-started/authentication",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Making Your First Request",
+          "slug": "getting-started/making-your-first-request",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "AegisAI Moderation & Media Processing API",
+      "slug": "aegisai-moderation-and-media-processing-api",
+      "children": [],
+      "isHeader": false,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "System",
+      "slug": "system",
+      "children": [
+        {
+          "name": "Health check",
+          "slug": "system/health-check",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Auth",
+      "slug": "auth",
+      "children": [
+        {
+          "name": "Exchange credentials for an access token",
+          "slug": "auth/exchange-credentials-for-an-access-token",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Users",
+      "slug": "users",
+      "children": [
+        {
+          "name": "Get current user profile",
+          "slug": "users/get-current-user-profile",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Files",
+      "slug": "files",
+      "children": [
+        {
+          "name": "Create a file record and get an upload URL",
+          "slug": "files/create-a-file-record-and-get-an-upload-url",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "List files",
+          "slug": "files/list-files",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Get file metadata",
+          "slug": "files/get-file-metadata",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Delete a file record (and underlying blob if supported)",
+          "slug": "files/delete-a-file-record-and-underlying-blob-if-supported",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Uploads",
+      "slug": "uploads",
+      "children": [
+        {
+          "name": "Get a presigned URL for one multipart upload part",
+          "slug": "uploads/get-a-presigned-url-for-one-multipart-upload-part",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Complete a multipart upload",
+          "slug": "uploads/complete-a-multipart-upload",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Policies",
+      "slug": "policies",
+      "children": [
+        {
+          "name": "Create a moderation policy",
+          "slug": "policies/create-a-moderation-policy",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "List policies",
+          "slug": "policies/list-policies",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Get a policy",
+          "slug": "policies/get-a-policy",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Update a policy",
+          "slug": "policies/update-a-policy",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Jobs",
+      "slug": "jobs",
+      "children": [
+        {
+          "name": "Create a job (moderation/transcription/redaction/export)",
+          "slug": "jobs/create-a-job-moderation-transcription-redaction-export",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "List jobs",
+          "slug": "jobs/list-jobs",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Get job status and (if done) results",
+          "slug": "jobs/get-job-status-and-if-done-results",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Cancel a job (best-effort)",
+          "slug": "jobs/cancel-a-job-best-effort",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "List output files produced by a job",
+          "slug": "jobs/list-output-files-produced-by-a-job",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Reports",
+      "slug": "reports",
+      "children": [
+        {
+          "name": "Create a moderation report from a job result",
+          "slug": "reports/create-a-moderation-report-from-a-job-result",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Webhooks",
+      "slug": "webhooks",
+      "children": [
+        {
+          "name": "Create a webhook",
+          "slug": "webhooks/create-a-webhook",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "List webhooks",
+          "slug": "webhooks/list-webhooks",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Get a webhook",
+          "slug": "webhooks/get-a-webhook",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Update a webhook",
+          "slug": "webhooks/update-a-webhook",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        },
+        {
+          "name": "Delete a webhook",
+          "slug": "webhooks/delete-a-webhook",
+          "children": [],
+          "isHeader": false,
+          "externalPageLink": "",
+          "isNewTab": false
+        }
+      ],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Job succeeded event",
+      "slug": "job-succeeded-event",
+      "children": [],
+      "isHeader": true,
+      "externalPageLink": "",
+      "isNewTab": false
+    },
+    {
+      "name": "Job failed event",
+      "slug": "job-failed-event",
+      "children": [],
+      "isHeader": false,
+      "externalPageLink": "",
+      "isNewTab": false
+    }
+  ],
+  "tabs": [],
+  "isSinglePage": true
+}

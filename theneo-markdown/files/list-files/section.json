@@ -1,0 +1,498 @@
+{
+  "endpoints": {
+    "method": "get",
+    "path": "files"
+  },
+  "request": {
+    "query": [
+      {
+        "name": "cursor",
+        "description": "Cursor token used to specify the starting point for the next page of results",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "limit",
+        "description": "Number of files to return per page, used for pagination control",
+        "isRequired": false,
+        "value": "25",
+        "valueType": "integer",
+        "items": [],
+        "options": {
+          "minimum": 1,
+          "maximum": 200,
+          "defaultValue": "25",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "body": [],
+    "header": [
+      {
+        "name": "Authorization",
+        "description": "Bearer token or credentials included in the request header for authorization",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key provided in the request header for authenticating the client",
+        "isRequired": false,
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "6943bc8949c26e6add4162bc"
+  },
+  "responses": [
+    {
+      "body": [
+        {
+          "name": "items",
+          "description": "Array or list of file objects returned in the response",
+          "isRequired": true,
+          "value": "",
+          "valueType": "array",
+          "items": [
+            {
+              "name": "0",
+              "description": "(No description available; please clarify parameter purpose)",
+              "isRequired": false,
+              "value": "",
+              "valueType": "array",
+              "items": [
+                {
+                  "name": "id",
+                  "description": "Unique identifier assigned to the file resource",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "pattern": "^file_[A-Za-z0-9]{16,}$",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "status",
+                  "description": "Current processing or availability status of the file",
+                  "isRequired": true,
+                  "value": "uploaded",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "uploaded"
+                      },
+                      {
+                        "value": "processing"
+                      },
+                      {
+                        "value": "ready"
+                      },
+                      {
+                        "value": "failed"
+                      },
+                      {
+                        "value": "deleted"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "purpose",
+                  "description": "Intended use or classification of the file",
+                  "isRequired": true,
+                  "value": "input",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "enumValue": [
+                      {
+                        "value": "input"
+                      },
+                      {
+                        "value": "output"
+                      },
+                      {
+                        "value": "evidence"
+                      },
+                      {
+                        "value": "export"
+                      }
+                    ],
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "filename",
+                  "description": "Original name of the file as uploaded",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "mimeType",
+                  "description": "MIME type describing the file’s format or content type",
+                  "isRequired": true,
+                  "value": "video/mp4",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "example": "video/mp4",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "sizeBytes",
+                  "description": "Size of the file in bytes",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "integer",
+                  "items": [],
+                  "options": {
+                    "minimum": 0,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "checksumSha256",
+                  "description": "SHA-256 checksum hash used to verify the integrity of the file",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "storage",
+                  "description": "Storage service or platform where the file is hosted",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [
+                    {
+                      "name": "provider",
+                      "description": "Name of the third-party service or provider managing the file storage",
+                      "isRequired": false,
+                      "value": "s3",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "example": "s3",
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "bucket",
+                      "description": "Name of the storage bucket containing the file",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "nullable": true,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "key",
+                      "description": "Unique identifier or key assigned to the file within the storage system",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "nullable": true,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    },
+                    {
+                      "name": "region",
+                      "description": "Geographic region or data center where the file is stored",
+                      "isRequired": false,
+                      "value": "",
+                      "valueType": "string",
+                      "items": [],
+                      "options": {
+                        "nullable": true,
+                        "xml": {
+                          "prefix": null
+                        },
+                        "schemaNames": []
+                      },
+                      "complexItems": []
+                    }
+                  ],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "createdAt",
+                  "description": "Timestamp indicating when the file was created or uploaded",
+                  "isRequired": true,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "format": "date-time",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "expiresAt",
+                  "description": "Timestamp indicating when the file or its access permissions expire",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "string",
+                  "items": [],
+                  "options": {
+                    "nullable": true,
+                    "format": "date-time",
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                },
+                {
+                  "name": "metadata",
+                  "description": "Custom key-value pairs associated with the file for additional context",
+                  "isRequired": false,
+                  "value": "",
+                  "valueType": "object",
+                  "items": [],
+                  "options": {
+                    "xml": {
+                      "prefix": null
+                    },
+                    "schemaNames": []
+                  },
+                  "complexItems": []
+                }
+              ],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        },
+        {
+          "name": "nextCursor",
+          "description": "Cursor token to retrieve the next page of results for pagination",
+          "isRequired": true,
+          "value": "",
+          "valueType": "string",
+          "items": [],
+          "options": {
+            "nullable": true,
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 200,
+      "description": "Files",
+      "contentType": "application/json"
+    },
+    {
+      "body": [
+        {
+          "name": "error",
+          "description": "Error object or message detailing any issues encountered during the request",
+          "isRequired": true,
+          "value": "",
+          "valueType": "object",
+          "items": [
+            {
+              "name": "code",
+              "description": "Status or error code associated with the file operation or response",
+              "isRequired": true,
+              "value": "BAD_REQUEST",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "BAD_REQUEST",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "message",
+              "description": "Human-readable message providing additional information about the response",
+              "isRequired": true,
+              "value": "Invalid request payload",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "example": "Invalid request payload",
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "details",
+              "description": "Additional information or context related to the file or response",
+              "isRequired": false,
+              "value": "",
+              "valueType": "object",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            },
+            {
+              "name": "requestId",
+              "description": "Unique server-generated identifier for tracking and support purposes",
+              "isRequired": false,
+              "value": "",
+              "valueType": "string",
+              "items": [],
+              "options": {
+                "xml": {
+                  "prefix": null
+                },
+                "schemaNames": []
+              },
+              "complexItems": []
+            }
+          ],
+          "options": {
+            "xml": {
+              "prefix": null
+            },
+            "schemaNames": []
+          },
+          "complexItems": []
+        }
+      ],
+      "statusCode": 401,
+      "description": "Unauthorized",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

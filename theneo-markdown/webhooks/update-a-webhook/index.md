@@ -1,0 +1,1 @@
+Update a webhook's configuration to modify its target URL, subscribed events, or status. This allows you to manage how and when your application receives event notifications, ensuring your integrations stay current and responsive to changes.

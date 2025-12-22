@@ -1,0 +1,220 @@
+{
+  "endpoints": {
+    "method": "post",
+    "path": "jobFailed"
+  },
+  "request": {
+    "query": [],
+    "body": [
+      {
+        "name": "id",
+        "description": "Unique identifier for the failure event",
+        "isRequired": true,
+        "value": "evt_01HFAILABCDE1234567",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "pattern": "^evt_[A-Za-z0-9]{16,}$",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "type",
+        "description": "Category or classification of the failure event",
+        "isRequired": true,
+        "value": "job.failed",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "createdAt",
+        "description": "Timestamp indicating when the job failure event was created, formatted in ISO 8601",
+        "isRequired": true,
+        "value": "2025-12-18T06:05:00Z",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "format": "date-time",
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "data",
+        "description": "Detailed object containing information related to the failed job",
+        "isRequired": true,
+        "value": "",
+        "valueType": "object",
+        "items": [
+          {
+            "name": "jobId",
+            "description": "Unique identifier of the job that has failed",
+            "isRequired": false,
+            "value": "job_01HJOBABCDE123456789",
+            "valueType": "string",
+            "items": [],
+            "options": {
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          },
+          {
+            "name": "status",
+            "description": "Current status of the job, reflecting failure state",
+            "isRequired": false,
+            "value": "failed",
+            "valueType": "string",
+            "items": [],
+            "options": {
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          },
+          {
+            "name": "error",
+            "description": "Detailed error object or message explaining the failure",
+            "isRequired": false,
+            "value": "",
+            "valueType": "object",
+            "items": [
+              {
+                "name": "code",
+                "description": "Error code representing the failure reason",
+                "isRequired": false,
+                "value": "DECODER_ERROR",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              },
+              {
+                "name": "message",
+                "description": "Human-readable description of the failure",
+                "isRequired": false,
+                "value": "Could not decode input media.",
+                "valueType": "string",
+                "items": [],
+                "options": {
+                  "xml": {
+                    "prefix": null
+                  },
+                  "schemaNames": []
+                },
+                "complexItems": []
+              }
+            ],
+            "options": {
+              "xml": {
+                "prefix": null
+              },
+              "schemaNames": []
+            },
+            "complexItems": []
+          }
+        ],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "header": [
+      {
+        "name": "X-Webhook-Event",
+        "description": "Type of webhook event being delivered",
+        "isRequired": true,
+        "value": "jobFailed",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "Authorization",
+        "description": "Bearer token used to authorize the request",
+        "isRequired": false,
+        "value": "JWT",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      },
+      {
+        "name": "X-API-Key",
+        "description": "API key used for authenticating the request",
+        "isRequired": false,
+        "value": "",
+        "valueType": "string",
+        "items": [],
+        "options": {
+          "xml": {
+            "prefix": null
+          },
+          "schemaNames": []
+        },
+        "complexItems": []
+      }
+    ],
+    "path": [],
+    "contentType": "application/json",
+    "graphqlQuery": "",
+    "codeExamples": [],
+    "_id": "69486a49e27ecdad5794175c"
+  },
+  "responses": [
+    {
+      "name": "Acknowledge receipt",
+      "status": "OK",
+      "body": [],
+      "statusCode": 200,
+      "description": "Acknowledge receipt",
+      "contentType": "application/json"
+    }
+  ],
+  "showBaseUrl": false,
+  "showLanguageBox": false,
+  "showRequestDescription": true,
+  "showResponseDescription": true,
+  "errorCodes": [],
+  "statusCodes": [],
+  "dataExample": [],
+  "endpointSummary": []
+}

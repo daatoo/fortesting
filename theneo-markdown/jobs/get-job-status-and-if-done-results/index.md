@@ -1,0 +1,1 @@
+Retrieve the current status of a submitted job and, once completed, access detailed results including progress metrics, summary insights, findings, transcripts, and output files. This allows users to monitor job execution in real time and obtain comprehensive analysis output for further processing or review.

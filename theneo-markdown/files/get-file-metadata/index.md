@@ -1,0 +1,1 @@
+Retrieve comprehensive metadata for a specific file stored within the system, including details such as file status, type, size, storage location, and custom metadata. This allows users to obtain essential information needed for managing, verifying, or auditing files efficiently.

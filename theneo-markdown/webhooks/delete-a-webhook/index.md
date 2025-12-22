@@ -1,0 +1,1 @@
+This section enables you to permanently remove a specific webhook from your BigReal account. Use it to manage and maintain your webhook integrations by deleting those that are no longer needed or active.

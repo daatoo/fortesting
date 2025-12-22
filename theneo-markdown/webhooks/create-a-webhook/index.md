@@ -1,0 +1,1 @@
+Create and configure a webhook to receive real-time notifications for specific events within your Bigreal account. This allows you to automate workflows by securely registering callback URLs that listen for and respond to designated event triggers.

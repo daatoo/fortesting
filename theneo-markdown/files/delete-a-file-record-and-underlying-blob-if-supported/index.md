@@ -1,0 +1,1 @@
+This section enables you to permanently remove a file record from the system, including its underlying data blob when supported. Use this operation to manage storage and maintain an organized file repository by deleting unnecessary or outdated files.

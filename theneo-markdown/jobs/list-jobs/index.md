@@ -1,0 +1,1 @@
+Retrieve a paginated list of jobs processed within your BigReal account, including detailed information about each job’s status, progress, results, and associated metadata. This allows you to monitor job activity, review analysis outcomes, and track processing stages effectively.
